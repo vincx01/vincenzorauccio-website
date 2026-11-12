@@ -96,7 +96,7 @@ Le immagini e il marchio in `public/` sono asset originali approvati. Non vanno 
 ### Clonazione e avvio
 
 ```sh
-git clone https://github.com/Synclin/vincenzorauccio-website.git
+git clone https://github.com/vincx01/vincenzorauccio-website.git
 cd vincenzorauccio-website
 bun install
 bun run dev
