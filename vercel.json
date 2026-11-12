@@ -1,0 +1,16 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "installCommand": "bun install",
+  "buildCommand": "bun run build:vercel",
+  "outputDirectory": "dist/vercel",
+  "redirects": [
+    { "source": "/blog", "destination": "/insights", "permanent": true },
+    { "source": "/blog/:path*", "destination": "/insights", "permanent": true },
+    { "source": "/category/:slug", "destination": "/insights?category=:slug", "permanent": true },
+    { "source": "/tag/:path*", "destination": "/insights", "permanent": true }
+  ],
+  "rewrites": [
+    { "source": "/api/health", "destination": "/api/health.json" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}

@@ -76,6 +76,8 @@ Le dipendenze e le versioni effettive sono definite in `package.json` e `bun.loc
 ├── package.json
 ├── tsconfig.json
 ├── vite.config.ts
+├── vite.vercel.config.ts      # Build statica per Vercel
+├── vercel.json                # Routing e build Vercel
 ├── wrangler.jsonc
 ├── deploy.json
 └── README.md
@@ -87,7 +89,7 @@ Le immagini e il marchio in `public/` sono asset originali approvati. Non vanno 
 
 ### Requisiti
 
-- Node.js 22 o versione successiva.
+- Node.js 22.12 o versione successiva.
 - Bun installato.
 - Un account Cloudflare solo se si desidera distribuire il Worker.
 
@@ -111,10 +113,18 @@ bun run build      # build di produzione
 bun run preview    # anteprima locale della build
 ```
 
-La build genera:
+La build Cloudflare genera:
 
 - `dist/client/` per gli asset statici;
 - `dist/portfolio/index.js` per il Worker Cloudflare.
+
+Per la build statica destinata a Vercel esiste un comando separato:
+
+```sh
+bun run build:vercel
+```
+
+Questa build usa `vite.vercel.config.ts`, non carica il plugin Cloudflare e scrive l’output in `dist/vercel`.
 
 ## Configurazione
 
@@ -122,11 +132,30 @@ Il sito non richiede variabili d’ambiente per l’esecuzione locale e non cont
 
 La configurazione di esecuzione e distribuzione è nei file:
 
-- `vite.config.ts` per il server di sviluppo e i plugin Vite.
+- `vite.config.ts` per il server di sviluppo e i plugin Vite/Cloudflare.
+- `vite.vercel.config.ts` per la build statica destinata a Vercel.
 - `wrangler.jsonc` per il Worker Cloudflare e il binding degli asset.
-- `deploy.json` per il manifest di pubblicazione del progetto.
+- `deploy.json` per il manifest di pubblicazione Cloudflare.
+- `vercel.json` per build, output e routing su Vercel.
 
 Non creare un file `.env` con segreti all’interno del repository. Se in futuro saranno necessarie variabili d’ambiente, dovranno essere documentate in un file `.env.example` con soli nomi e valori segnaposto, mentre i valori reali resteranno fuori dal versionamento.
+
+## Deploy su Vercel
+
+Il progetto può essere pubblicato su Vercel come applicazione statica Vite. La configurazione Cloudflare resta separata e non viene rimossa.
+
+Impostazioni del progetto Vercel:
+
+- Framework preset: **Vite**.
+- Install command: **`bun install`** (rilevato da `bun.lock`).
+- Build command: **`bun run build:vercel`**.
+- Output directory: **`dist/vercel`**.
+- Node.js: **22.x**.
+- Variabili d’ambiente: **nessuna attualmente richiesta**.
+
+La build Vercel non esegue il Worker Hono: `vercel.json` riproduce i redirect legacy e il fallback SPA, mentre `/api/health` viene servito dal file statico `public/api/health.json`.
+
+Non pubblicare il progetto su Vercel finché non è stata verificata la build locale e non è stata confermata la configurazione del dominio.
 
 ## Manutenzione e sviluppo
 
