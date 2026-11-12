@@ -1,0 +1,29 @@
+# Dipendenze
+node_modules/
+
+# Build e output
+dist/
+.wrangler/
+.cache/
+coverage/
+
+# Ambiente e segreti
+.env
+.env.*
+!.env.example
+.dev.vars
+.dev.vars.*
+!.dev.vars.example
+
+# Configurazione locale e file di sistema
+.freebuff/
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.local
+*.log
+
+# Temporanei
+*.tmp
+*.temp
