@@ -20,7 +20,7 @@ export function Recognition() {
   usePageMeta({
     title: 'Riconoscimenti — Vincenzo Rauccio',
     description:
-      'I riconoscimenti documentati di Vincenzo Rauccio e di Synclin, tra cui i Pan Finance Awards 2026 e il premio Most Influential FinTech Entrepreneur 2025 (Italy).',
+      'I riconoscimenti documentati di Vincenzo Rauccio, tra cui Most Influential FinTech Entrepreneur 2025 (Italy) di Wealth & Finance International.',
     path: '/recognition',
     jsonLd: {
       '@context': 'https://schema.org',
@@ -32,9 +32,7 @@ export function Recognition() {
         name: site.name,
         url: site.url,
         jobTitle: site.role,
-        award: recognition
-          .filter((entry) => !entry.recipient)
-          .map((entry) => `${entry.title} — ${entry.organisation} (${entry.date})`),
+        award: recognition.map((entry) => `${entry.title} — ${entry.organisation} (${entry.date})`),
       },
     },
   })
@@ -56,8 +54,8 @@ export function Recognition() {
             </div>
             <div className="lg:col-span-4 lg:pt-2">
               <p className="text-body text-ink-muted">
-                Raccolgo solo riconoscimenti verificabili, con una fonte pubblica. Premi,
-                interventi e pubblicazioni entrano quando il riferimento è disponibile.
+                Pubblico solo riconoscimenti verificabili, con un riferimento pubblico. Premi,
+                interventi e pubblicazioni vengono aggiunti quando la fonte è disponibile.
               </p>
             </div>
           </div>
@@ -83,17 +81,7 @@ export function Recognition() {
 
               <div className={entry.image ? 'lg:col-span-5 lg:col-start-8' : 'lg:col-span-8'}>
                 <h2 className="font-display text-title">{entry.title}</h2>
-                {entry.awardTitle && (
-                  <p className="mt-2 text-lead text-ink">{entry.awardTitle}</p>
-                )}
-                {entry.recipient && (
-                  <p className="mt-3 text-small text-ink">
-                    <span className="text-ink-faint">Assegnato a </span>
-                    {entry.recipient}
-                    {entry.recipientRole ? ` · ${entry.recipientRole}` : ''}
-                  </p>
-                )}
-                <p className="mt-2 text-small text-ink-muted">
+                <p className="mt-3 text-small text-ink-muted">
                   {entry.organisation} · {entry.date}
                 </p>
                 <p className="mt-5 text-lead text-ink-muted">{entry.summary}</p>

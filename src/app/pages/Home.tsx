@@ -106,7 +106,7 @@ function Expertise() {
           index="02"
           eyebrow="Competenze"
           title="Sei aree, lo stesso metodo: capire il processo prima della tecnologia."
-          description="Governance Blockchain, pagamenti digitali e trasformazione digitale: le competenze che porto nei processi."
+          description="Governance Blockchain, pagamenti digitali e trasformazione: le competenze che porto nei processi."
         />
         <Reveal className="mt-14">
           <CapabilityList items={expertise} />

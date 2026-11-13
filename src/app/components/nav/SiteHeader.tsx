@@ -12,13 +12,8 @@ import { Button } from '../ui/Button'
 
 /**
  * Header sticky: logo ufficiale, navigazione con stato attivo, azione di
- * contatto e pannello mobile a tutta altezza. Il pannello vive fuori
- * dall'header: il backdrop-filter dell'header crea un containing block per
- * gli elementi fixed e, dopo lo scroll, faceva collassare il menu.
- *
- * Il pannello si chiude con Escape, con il pulsante, al cambio pagina e
- * quando il viewport passa al layout desktop. Il focus resta confinato nel
- * menu finché è aperto.
+ * contatto e pannello mobile a tutta altezza. Il pannello si chiude con
+ * Escape, riporta il focus al pulsante e ripristina lo scroll della pagina.
  */
 export function SiteHeader() {
   const [open, setOpen] = useState(false)
@@ -41,52 +36,13 @@ export function SiteHeader() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  // Al passaggio al layout desktop il menu mobile non deve restare aperto
-  // con il body ancora bloccato.
-  useEffect(() => {
-    const desktop = window.matchMedia('(min-width: 1024px)')
-    const onChange = () => {
-      if (desktop.matches) setOpen(false)
-    }
-
-    desktop.addEventListener('change', onChange)
-    return () => desktop.removeEventListener('change', onChange)
-  }, [])
-
   useEffect(() => {
     if (!open) return
 
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        event.preventDefault()
-        setOpen(false)
-        return
-      }
-
-      if (event.key !== 'Tab') return
-
-      const panel = panelRef.current
-      const focusable = [
-        toggleRef.current,
-        ...Array.from(
-          panel?.querySelectorAll<HTMLElement>('a[href], button:not([disabled])') ?? [],
-        ),
-      ].filter((element): element is HTMLElement => element !== null)
-
-      if (focusable.length === 0) return
-
-      const first = focusable[0]
-      const last = focusable[focusable.length - 1]
-
-      if (event.shiftKey && document.activeElement === first) {
-        event.preventDefault()
-        last.focus()
-      } else if (!event.shiftKey && document.activeElement === last) {
-        event.preventDefault()
-        first.focus()
-      }
+      if (event.key !== 'Escape') return
+      setOpen(false)
     }
-
     const previousOverflow = document.body.style.overflow
     const panel = panelRef.current
 
@@ -107,77 +63,72 @@ export function SiteHeader() {
   }, [open])
 
   return (
-    <>
-      <header
-        className={cx(
-          'sticky top-0 z-50 border-b text-ink transition-colors duration-300',
-          scrolled ? 'border-line-strong bg-canvas/85 backdrop-blur-md' : 'border-line bg-canvas',
-        )}
-      >
-        <Container width="wide">
-          <div className="flex h-[var(--header-height)] items-center justify-between gap-4 lg:grid lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] lg:gap-4 xl:gap-6">
-            <Link
-              to="/"
-              aria-label="Vincenzo Rauccio, torna alla home"
-              onClick={() => setOpen(false)}
-              className="min-w-0 lg:col-start-1 lg:justify-self-start"
-            >
-              <Logo priority />
-            </Link>
+    <header
+      className={cx(
+        'sticky top-0 z-50 border-b text-ink transition-colors duration-300',
+        scrolled ? 'border-line-strong bg-canvas/85 backdrop-blur-md' : 'border-line bg-canvas',
+      )}
+    >
+      <Container width="wide">
+        <div className="flex h-[var(--header-height)] items-center justify-between gap-4 lg:grid lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] lg:gap-4 xl:gap-6">
+          <Link
+            to="/"
+            aria-label="Vincenzo Rauccio, torna alla home"
+            className="min-w-0 lg:col-start-1 lg:justify-self-start"
+          >
+            <Logo priority />
+          </Link>
 
-            <nav
-              aria-label="Navigazione principale"
-              className="hidden items-center gap-4 lg:flex lg:justify-self-center xl:gap-6"
-            >
-              {primaryNav.map((item) => (
-                <NavLink
-                  key={item.to}
-                  to={item.to}
-                  end={item.to === '/'}
-                  className={({ isActive }) => cx('link-quiet text-nav', isActive && 'text-ink')}
-                >
-                  {item.label}
-                </NavLink>
-              ))}
-            </nav>
-
-            <div className="flex items-center lg:col-start-3 lg:justify-self-end">
-              <div className="hidden lg:flex">
-                <Button href={`mailto:${site.email}`} size="sm" arrow>
-                  Scrivimi
-                </Button>
-              </div>
-
-              <button
-                ref={toggleRef}
-                type="button"
-                aria-expanded={open}
-                aria-controls="mobile-navigation"
-                aria-label={open ? 'Chiudi il menu' : 'Apri il menu'}
-                onClick={() => setOpen((value) => !value)}
-                className="grid size-10 place-items-center border border-line-strong text-ink transition-colors duration-300 hover:border-ink lg:hidden"
+          <nav
+            aria-label="Navigazione principale"
+            className="hidden items-center gap-4 lg:flex lg:justify-self-center xl:gap-6"
+          >
+            {primaryNav.map((item) => (
+              <NavLink
+                key={item.to}
+                to={item.to}
+                end={item.to === '/'}
+                className={({ isActive }) => cx('link-quiet text-nav', isActive && 'text-ink')}
               >
-                {open ? (
-                  <X aria-hidden="true" className="size-4" />
-                ) : (
-                  <Menu aria-hidden="true" className="size-4" />
-                )}
-              </button>
+                {item.label}
+              </NavLink>
+            ))}
+          </nav>
+
+          <div className="flex items-center lg:col-start-3 lg:justify-self-end">
+            <div className="hidden lg:flex">
+              <Button href={`mailto:${site.email}`} size="sm" arrow>
+                Scrivimi
+              </Button>
             </div>
+
+            <button
+              ref={toggleRef}
+              type="button"
+              aria-expanded={open}
+              aria-controls="mobile-navigation"
+              aria-label={open ? 'Chiudi il menu' : 'Apri il menu'}
+              onClick={() => setOpen((value) => !value)}
+              className="grid size-10 place-items-center border border-line-strong text-ink transition-colors duration-300 hover:border-ink lg:hidden"
+            >
+              {open ? (
+                <X aria-hidden="true" className="size-4" />
+              ) : (
+                <Menu aria-hidden="true" className="size-4" />
+              )}
+            </button>
           </div>
-        </Container>
-      </header>
+        </div>
+      </Container>
 
       {open && (
         <motion.div
           ref={panelRef}
           id="mobile-navigation"
-          role="dialog"
-          aria-label="Menu di navigazione"
           initial={reduce ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.28, ease: EASE_OUT }}
-          className="fixed inset-x-0 top-[var(--header-height)] bottom-0 z-[45] overflow-y-auto border-t border-line bg-canvas lg:hidden"
+          className="fixed inset-x-0 top-[var(--header-height)] bottom-0 z-40 overflow-y-auto border-t border-line bg-canvas lg:hidden"
         >
           <Container className="flex min-h-full flex-col justify-between gap-10 py-8">
             <nav aria-label="Navigazione mobile" className="flex flex-col">
@@ -186,7 +137,6 @@ export function SiteHeader() {
                   key={item.to}
                   to={item.to}
                   end={item.to === '/'}
-                  onClick={() => setOpen(false)}
                   className={({ isActive }) =>
                     cx(
                       'flex items-baseline justify-between border-b border-line py-4 text-title transition-colors duration-300',
@@ -210,6 +160,6 @@ export function SiteHeader() {
           </Container>
         </motion.div>
       )}
-    </>
+    </header>
   )
 }

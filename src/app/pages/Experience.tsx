@@ -11,6 +11,8 @@ import { TextLink } from '../components/ui/TextLink'
 import { Timeline } from '../components/ui/Timeline'
 import { usePageMeta } from '../lib/meta'
 
+const award = recognition[0]
+
 const educationEntries = education.map((entry) => ({
   period: entry.period,
   title: entry.title,
@@ -46,14 +48,14 @@ export function ExperiencePage() {
           <div className="mt-8 grid gap-8 lg:grid-cols-12 lg:gap-[var(--grid-gap)]">
             <div className="lg:col-span-8">
               <h1 className="max-w-[18ch] font-display text-headline">
-                Consulenza, coordinamento e formazione.
+                Consulenza, leadership e formazione.
               </h1>
             </div>
             <div className="lg:col-span-4 lg:pt-2">
               <p className="text-body text-ink-muted">
                 Un percorso tra iniziative di trasformazione digitale, coordinamento tecnico e
-                formazione continua. Le esperienze e le certificazioni qui sotto sono quelle del
-                CV.
+                formazione continua. Le esperienze e le certificazioni che seguono sono quelle
+                riportate nel CV.
               </p>
             </div>
           </div>
@@ -166,50 +168,26 @@ export function ExperiencePage() {
         </Container>
       </Section>
 
-      {recognition.length > 0 && (
+      {award && (
         <Section spacing="tight">
           <Container>
             <div className="grid gap-6 border-t border-line pt-5 lg:grid-cols-12 lg:gap-[var(--grid-gap)]">
               <div className="lg:col-span-4">
                 <p className="eyebrow text-ink-faint">Riconoscimenti</p>
                 <h2 className="mt-4 max-w-[16ch] font-display text-title">
-                  Riconoscimenti professionali.
+                  Un premio che riguarda il lavoro.
                 </h2>
               </div>
-              <div className="divide-y divide-line lg:col-span-7 lg:col-start-6">
-                {recognition.map((entry) => (
-                  <div key={entry.id} className="border-t border-line py-6 first:border-t-0 first:pt-0">
-                    <p className="eyebrow text-ink-faint">{entry.kind}</p>
-                    <h3 className="mt-2 text-subtitle">{entry.title}</h3>
-                    {entry.awardTitle && (
-                      <p className="mt-2 text-lead text-ink">{entry.awardTitle}</p>
-                    )}
-                    {entry.recipient && (
-                      <p className="mt-2 text-small text-ink">
-                        <span className="text-ink-faint">Assegnato a </span>
-                        {entry.recipient}
-                        {entry.recipientRole ? ` · ${entry.recipientRole}` : ''}
-                      </p>
-                    )}
-                    <p className="mt-2 text-small text-ink-muted">
-                      {entry.organisation} · {entry.date}
-                    </p>
-                    <p className="mt-4 max-w-[56ch] text-small text-ink-muted">{entry.summary}</p>
-                    <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-3">
-                      {entry.links[0] && (
-                        <a
-                          href={entry.links[0].href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="link-arrow text-small"
-                        >
-                          {entry.links[0].label}
-                        </a>
-                      )}
-                      <TextLink to="/recognition">Vedi il riconoscimento</TextLink>
-                    </div>
-                  </div>
-                ))}
+              <div className="lg:col-span-7 lg:col-start-6">
+                <p className="eyebrow text-ink-faint">{award.kind}</p>
+                <h3 className="mt-2 text-subtitle">{award.title}</h3>
+                <p className="mt-2 text-small text-ink-muted">
+                  {award.organisation} · {award.date}
+                </p>
+                <p className="mt-4 max-w-[56ch] text-small text-ink-muted">{award.summary}</p>
+                <div className="mt-5">
+                  <TextLink to="/recognition">Vedi il riconoscimento</TextLink>
+                </div>
               </div>
             </div>
           </Container>

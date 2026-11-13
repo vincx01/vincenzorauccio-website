@@ -1,9 +1,10 @@
 /**
  * Solo riconoscimenti verificati.
  *
- * Le voci rimandano alle fonti pubbliche disponibili. I riconoscimenti
- * assegnati a Synclin sono indicati con il destinatario e il ruolo
- * professionale, per non attribuirli direttamente alla persona.
+ * L’unica voce documentata è l’annuncio del premio, che rimanda alla pagina
+ * ufficiale dei vincitori e al numero FinTech Awards 2025. Certificazioni,
+ * riconoscimenti accademici e interventi non sono pubblicati altrove, quindi
+ * non vengono elencati.
  */
 
 export interface RecognitionEntry {
@@ -16,12 +17,6 @@ export interface RecognitionEntry {
   /** Data leggibile da <time>. */
   dateTime: string
   summary: string
-  /** Denominazione ufficiale del riconoscimento, quando differisce dal nome dell’iniziativa. */
-  awardTitle?: string
-  /** Destinatario del riconoscimento, quando non è direttamente Vincenzo Rauccio. */
-  recipient?: string
-  /** Ruolo professionale collegato al destinatario. */
-  recipientRole?: string
   image?: { src: string; alt: string }
   links: Array<{ label: string; href: string }>
   /** Articolo interno che racconta il riconoscimento, quando esiste. */
@@ -29,25 +24,6 @@ export interface RecognitionEntry {
 }
 
 export const recognition: RecognitionEntry[] = [
-  {
-    id: 'pan-finance-awards-2026',
-    kind: 'Premio',
-    title: 'Pan Finance Awards 2026',
-    organisation: 'Pan Finance',
-    awardTitle: 'Best Professional Booking Management Platform - Italy 2026',
-    date: '2026',
-    dateTime: '2026',
-    recipient: 'Synclin',
-    recipientRole: 'Vincenzo Rauccio, Co-Founder & CEO di Synclin',
-    summary:
-      'Synclin ha ricevuto il riconoscimento Best Professional Booking Management Platform - Italy 2026 nell’ambito dei Pan Finance Awards 2026. Un risultato che valorizza il lavoro di sviluppo del prodotto e l’impegno per semplificare la gestione delle prenotazioni professionali.',
-    links: [
-      {
-        label: 'Leggi l’articolo ufficiale su Synclin',
-        href: 'https://synclin.com/blog/pan-finance-awards-2026',
-      },
-    ],
-  },
   {
     id: 'fintech-awards-2025',
     kind: 'Premio',

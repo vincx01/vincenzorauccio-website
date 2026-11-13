@@ -11,7 +11,7 @@ export function Projects() {
   usePageMeta({
     title: 'Progetti — Vincenzo Rauccio',
     description:
-      'Synclin, la piattaforma di gestione appuntamenti co-fondata da Vincenzo Rauccio: prenotazioni, pagamenti e comunicazione in un unico prodotto.',
+      'Synclin: un prodotto SaaS per la gestione degli appuntamenti, con periodo, servizi e sito del progetto.',
     path: '/projects',
   })
 
@@ -32,8 +32,8 @@ export function Projects() {
             </div>
             <div className="lg:col-span-4 lg:pt-2">
               <p className="text-body text-ink-muted">
-                Synclin nasce per semplificare la gestione delle prenotazioni professionali.
-                Qui trovi il contesto del prodotto, i servizi e i riferimenti pubblici.
+                Un prodotto SaaS per la gestione degli appuntamenti. La scheda raccoglie periodo,
+                servizi e sito del progetto.
               </p>
             </div>
           </div>

@@ -80,14 +80,14 @@ export const education: EducationEntry[] = [
     id: 'laurea-magistrale',
     period: '2026',
     title: 'Laurea Magistrale in Ingegneria dell’Automazione e Cybersecurity',
-    organisation: 'Università degli Studi della Campania Luigi Vanvitelli',
+    organisation: 'Università degli Studi eCampus',
     status: 'In corso',
   },
   {
     id: 'laurea-triennale',
     period: '2023 — 2026',
     title: 'Laurea Triennale in Ingegneria Informatica',
-    organisation: 'Università degli Studi della Campania Luigi Vanvitelli',
+    organisation: 'Università degli Studi eCampus',
   },
 ]
 

@@ -9,7 +9,7 @@ import { Button } from '../components/ui/Button'
 import { TextLink } from '../components/ui/TextLink'
 import { usePageMeta } from '../lib/meta'
 
-const award = recognition.find((entry) => !entry.recipient)
+const award = recognition[0]
 const professionalSkills = skillGroups.find((group) => group.title === 'Competenze professionali')?.items ?? []
 const italian = languages.find((entry) => entry.language === 'Italiano')
 const english = languages.find((entry) => entry.language === 'Inglese')
@@ -50,7 +50,7 @@ export function About() {
                 sizes="(min-width: 1024px) 352px, 90vw"
                 width={1090}
                 height={1443}
-                alt="Ritratto di Vincenzo Rauccio, Consulente Blockchain."
+                alt="Vincenzo Rauccio, Consulente Blockchain e professionista nell’ambito dell’innovazione tecnologica."
                 loading="eager"
                 decoding="async"
                 className="mx-auto h-auto w-full max-w-[22rem] sm:max-w-[26rem] lg:mx-0 lg:max-w-[22rem]"
@@ -118,9 +118,9 @@ export function About() {
                   tecnologici e normativi.
                 </p>
                 <p className="mt-5 text-body text-ink-muted">
-                  Accanto alla consulenza porto avanti Synclin, il prodotto che ho co-fondato, e
-                  svolgo attività di divulgazione: articoli, interventi e confronti pubblici su come
-                  la tecnologia cambia processi e organizzazioni.
+                  Accanto alla consulenza porto avanti un prodotto mio, Synclin, e attività di
+                  divulgazione: articoli, interventi e confronti pubblici su come la tecnologia
+                  cambia processi e organizzazioni.
                 </p>
 
                 <div className="mt-10 border-t border-line pt-5">
