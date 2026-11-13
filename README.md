@@ -1,4 +1,4 @@
-# Vincenzo Rauccio — Personal Website
+# Vincenzo Rauccio — Sito personale
 
 Questo repository contiene il codice sorgente, la configurazione e gli asset utilizzati per sviluppare e mantenere il sito personale ufficiale di Vincenzo Rauccio.
 
@@ -170,7 +170,7 @@ Prima di ogni aggiornamento pubblicato è necessario eseguire `bun run typecheck
 
 ## Privacy e accesso al repository
 
-This repository is private and contains the source code and development assets of Vincenzo Rauccio's personal website. It is not intended for public distribution or use as an open-source project.
+Questo repository è privato e contiene il codice sorgente e gli asset di sviluppo del sito personale di Vincenzo Rauccio. Non è destinato alla distribuzione pubblica né all’uso come progetto open source.
 
 Il sito non raccoglie dati tramite moduli e non usa strumenti di analytics o marketing. L’unica memoria locale è quella necessaria a ricordare la scelta espressa nel banner cookie. I dettagli sono nelle pagine Privacy e Cookie policy.
 

@@ -73,7 +73,7 @@ export function Hero() {
               {...rise(0.08)}
               className="mt-6 max-w-[19ch] font-display text-hero text-balance"
             >
-              Connetto tecnologia, finanza e innovazione.
+              Tecnologia e finanza, dentro i processi.
             </motion.h1>
 
             <motion.p {...rise(0.16)} className="text-measure mt-7 text-lead text-ink-muted">
