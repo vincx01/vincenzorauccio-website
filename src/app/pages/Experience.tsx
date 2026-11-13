@@ -30,7 +30,7 @@ export function ExperiencePage() {
   usePageMeta({
     title: 'Esperienza — Vincenzo Rauccio',
     description:
-      'Il percorso professionale di Vincenzo Rauccio: consulenza in PwC Italy, Blockchain Trajectory Lead all’Ordine degli Ingegneri di Caserta, formazione e certificazioni.',
+      'Il percorso professionale di Vincenzo Rauccio: consulenza in PwC Italy, Blockchain Innovation Lead all’Ordine degli Ingegneri di Caserta, formazione e certificazioni.',
     path: '/experience',
   })
 

@@ -79,7 +79,7 @@ function Introduction() {
                 </div>
                 <div>
                   <dt className="eyebrow text-ink-faint">Leadership</dt>
-                  <dd className="mt-1.5 text-small text-ink-muted">Blockchain Trajectory Lead</dd>
+                  <dd className="mt-1.5 text-small text-ink-muted">Blockchain Innovation Lead</dd>
                 </div>
                 <div>
                   <dt className="eyebrow text-ink-faint">Focus</dt>
