@@ -70,7 +70,7 @@ export function About() {
             <div className="border-b border-line py-3">
               <dt className="eyebrow text-ink-faint">Leadership</dt>
               <dd className="mt-1.5 text-small text-ink-muted">
-                Blockchain Trajectory Lead, Ordine degli Ingegneri di Caserta
+                Blockchain Innovation Lead, Ordine degli Ingegneri di Caserta
               </dd>
             </div>
             <div className="border-b border-line py-3">

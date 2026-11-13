@@ -54,7 +54,7 @@ export const professionalExperience: ProfessionalRole[] = [
   },
   {
     id: 'ordine-ingegneri-caserta',
-    role: 'Blockchain Trajectory Lead',
+    role: 'Blockchain Innovation Lead',
     organisation: 'Ordine degli Ingegneri della Provincia di Caserta',
     period: 'Febbraio 2023 — oggi',
     location: 'Caserta',
