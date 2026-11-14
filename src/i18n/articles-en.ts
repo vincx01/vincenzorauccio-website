@@ -28,7 +28,7 @@ export const englishArticles: Record<string, ArticleTranslation> = {
     body: [
       {
         type: 'paragraph',
-        text: 'Anyone who manages appointments knows the cost of the tasks that repeat every day: answering messages, finding a time that works, issuing invoices, sending a reminder. Synclin is a booking and appointment management platform designed to reduce that workload and give professionals their time back.',
+        text: 'Anyone who manages appointments knows the cost of daily repetition: answering messages, finding a time that works, issuing invoices, sending a reminder. Synclin is a booking and appointment management platform designed to reduce that workload and give professionals their time back.',
       },
       { type: 'heading', level: 2, text: 'What Synclin is' },
       {
@@ -43,17 +43,17 @@ export const englishArticles: Record<string, ArticleTranslation> = {
       { type: 'heading', level: 2, text: 'Getting paid and staying in touch' },
       {
         type: 'paragraph',
-        text: 'Synclin handles online and in-person payments by card and digital wallet, and can issue and send invoices after each appointment. Confirmations and reminders are sent automatically, reducing no-shows and follow-up calls. The dashboard can be configured around the data each professional actually needs.',
+        text: 'Synclin accepts online and in-person payments by card and digital wallet, and can issue and send invoices after each appointment. Confirmations and reminders are sent automatically, reducing no-shows and follow-up calls. The dashboard can be configured around the data each professional actually needs.',
       },
       { type: 'heading', level: 2, text: 'Designed for the Italian market' },
       {
         type: 'paragraph',
-        text: 'Many available tools are built for large organisations or different markets. Synclin starts from a concrete need and an Italian context: a clear interface, the payments and invoicing that businesses actually require, and adoption that does not depend on an internal technology team.',
+        text: 'Many available tools are built for large organisations or different markets. Synclin was designed around a concrete need in the Italian market: a clear interface, the payment and invoicing capabilities businesses actually require, and adoption that does not depend on an internal technology team.',
       },
       { type: 'heading', level: 2, text: 'Privacy and security' },
       {
         type: 'paragraph',
-        text: 'Client data is confidential by nature. Synclin applies security and encryption measures and follows the applicable data protection rules. Access management and data retention are part of the product, not an afterthought.',
+        text: 'Client data is confidential by nature. Synclin applies security and encryption measures and complies with applicable data protection rules. Access management and data retention are part of the product, not an afterthought.',
       },
       { type: 'heading', level: 2, text: 'Who it is for' },
       {
@@ -63,7 +63,7 @@ export const englishArticles: Record<string, ArticleTranslation> = {
       { type: 'heading', level: 2, text: 'How to try it' },
       {
         type: 'paragraph',
-        text: 'Synclin can be explored and tried at synclin.com. The demo shows the full flow: booking, payment, confirmation and appointment management.',
+        text: 'You can explore Synclin at synclin.com. The demo walks through the full flow: booking, payment, confirmation and appointment management.',
       },
       {
         type: 'links',
@@ -78,7 +78,7 @@ export const englishArticles: Record<string, ArticleTranslation> = {
       title:
         'Vincenzo Rauccio named Most Influential FinTech Entrepreneur 2025 (Italy) by Wealth & Finance International',
       excerpt:
-        'Wealth & Finance International has named Vincenzo Rauccio among the winners of the FinTech Awards 2025 for Italy.',
+        'Wealth & Finance International has named Vincenzo Rauccio a winner of the FinTech Awards 2025 for Italy.',
       categories: ['Awards', 'Blockchain', 'Web3'],
       tags: ['Awards', 'Blockchain', 'DAO', 'FinTech', 'Wealth & Finance', 'Web3'],
       image: {
@@ -88,32 +88,32 @@ export const englishArticles: Record<string, ArticleTranslation> = {
       body: [
         {
           type: 'paragraph',
-          text: 'In September 2025, Wealth & Finance International named Vincenzo Rauccio Most Influential FinTech Entrepreneur 2025 (Italy) as part of the FinTech Awards. The recognition reflects his consulting work across blockchain, digital payments and Web3 innovation.',
+          text: 'In September 2025, Wealth & Finance International named Vincenzo Rauccio Most Influential FinTech Entrepreneur 2025 (Italy) as part of the FinTech Awards 2025. The recognition reflects his consulting work across blockchain, digital payments and Web3 innovation.',
         },
         { type: 'heading', level: 2, text: 'The award' },
         {
           type: 'paragraph',
-          text: 'The FinTech Awards are presented by Wealth & Finance International, a publication specialising in finance and technology. The official winners page and the dedicated FinTech Awards 2025 issue document the nomination and the context of the award.',
+          text: 'The FinTech Awards are presented by Wealth & Finance International, a publication specialising in finance and technology. The official winners page and the dedicated FinTech Awards 2025 issue document the recognition and the context of the award.',
         },
         { type: 'heading', level: 2, text: 'The work' },
         {
           type: 'paragraph',
-          text: 'Rauccio’s consulting work focuses on blockchain, digital payments and Web3. It starts with the constraints that organisations actually face: regulation, existing systems, data and people. Technology becomes useful when those conditions are addressed together, not when it is added to a process that is not ready to receive it.',
+          text: 'Rauccio’s consulting work focuses on blockchain, digital payments and Web3. It starts with the constraints organisations actually face: regulation, existing systems, data and people. Technology becomes useful when those conditions are addressed together, not when it is added to a process that is not ready for it.',
         },
         { type: 'heading', level: 2, text: 'Areas of focus' },
         {
           type: 'paragraph',
           text: 'In recent years his work has moved towards protocol governance, the tokenisation of real-world assets and digital payments in regulated environments. These are areas where technical infrastructure and market rules cannot be designed in isolation.',
         },
-        { type: 'heading', level: 2, text: 'What changes' },
+        { type: 'heading', level: 2, text: 'What the award changes' },
         {
           type: 'paragraph',
-          text: 'An award does not change the method. It changes the visibility of the work and the opportunity to bring these issues into wider settings, within banks, companies and public institutions. It is a chance to keep explaining what works, what does not, and under which conditions.',
+          text: 'An award does not change the method. It raises the visibility of the work and creates opportunities to take these issues into larger settings: banks, companies and public institutions. It is also a chance to keep explaining what works, what does not, and under what conditions.',
         },
         { type: 'heading', level: 2, text: 'The next step' },
         {
           type: 'paragraph',
-          text: 'The direction remains the same: make projects verifiable and systems understandable, with a use of technology that stands up to regulation and to time.',
+          text: 'The direction remains the same: make projects verifiable and systems understandable, using technology that can withstand regulatory scrutiny and the test of time.',
         },
         {
           type: 'links',
@@ -200,7 +200,7 @@ export const englishArticles: Record<string, ArticleTranslation> = {
         type: 'paragraph',
         text: 'A distributed ledger is not immune to attack. In voting and identity management, data protection and resistance to manipulation are preconditions, not details to address after launch.',
       },
-      { type: 'heading', level: 2, text: 'What is actually required' },
+      { type: 'heading', level: 2, text: 'What is required in practice' },
       {
         type: 'paragraph',
         text: 'Blockchain can make public processes more verifiable and restore confidence among participants, but it requires defined use cases, clear rules and verified security. The process remains the starting point; the technology follows.',
@@ -221,7 +221,7 @@ export const englishArticles: Record<string, ArticleTranslation> = {
     body: [
       {
         type: 'paragraph',
-        text: 'Blockchain emerged with Bitcoin and quickly moved beyond the perimeter of cryptocurrencies. Today public administrations and governments are testing it for data sharing, digital identity, procurement and voting. Its value lies not in the technology itself, but in the ability to make verifiable what currently depends on intermediaries and retrospective checks.',
+        text: 'Blockchain emerged with Bitcoin and quickly moved beyond cryptocurrencies themselves. Today public administrations and governments are testing it for data sharing, digital identity, procurement and voting. Its value lies less in the technology itself than in the verifiability it brings to processes that currently depend on intermediaries and after-the-fact checks.',
       },
       { type: 'heading', level: 2, text: 'Why public administration is interested' },
       {
@@ -232,7 +232,7 @@ export const englishArticles: Record<string, ArticleTranslation> = {
       { type: 'heading', level: 3, text: 'Trust and verifiability' },
       {
         type: 'paragraph',
-        text: 'A shared ledger allows citizens and institutions to check the same data. In voting, for example, verification of the count is where the credibility of the process is decided. The challenge is to guarantee secrecy, uniqueness of the vote and verifiability of the result together.',
+        text: 'A shared ledger allows citizens and institutions to check the same data. In voting, for example, verification of the count is where the credibility of the process is determined. The challenge is to guarantee secrecy, uniqueness of the vote and verifiability of the result together.',
       },
       { type: 'heading', level: 3, text: 'Lower administrative cost' },
       {
@@ -242,7 +242,7 @@ export const englishArticles: Record<string, ArticleTranslation> = {
       { type: 'heading', level: 3, text: 'Transparency' },
       {
         type: 'paragraph',
-        text: 'When operations are recorded publicly and immutably, it becomes easier to reconstruct events and assign responsibility. This does not eliminate corruption, but it makes changes harder to conceal and makes it clearer who did what.',
+        text: 'When operations are recorded publicly and immutably, it becomes easier to reconstruct events and assign responsibility. This does not eliminate corruption, but it makes changes harder to conceal and responsibility easier to trace.',
       },
       { type: 'heading', level: 2, text: 'Use cases beyond voting' },
       { type: 'heading', level: 3, text: 'Smart cities' },
@@ -276,7 +276,7 @@ export const englishArticles: Record<string, ArticleTranslation> = {
         type: 'paragraph',
         text: 'A distributed ledger is not immune to attack. In voting and identity management, data protection and resistance to manipulation are preconditions, not details to address after launch.',
       },
-      { type: 'heading', level: 2, text: 'What is actually required' },
+      { type: 'heading', level: 2, text: 'What is required in practice' },
       {
         type: 'paragraph',
         text: 'Blockchain can make public processes more verifiable, but only with defined use cases, clear rules and verified security. The process remains the starting point; the technology follows.',
@@ -320,16 +320,16 @@ export const englishArticles: Record<string, ArticleTranslation> = {
       { type: 'heading', level: 2, text: 'What is still missing' },
       {
         type: 'paragraph',
-        text: 'The technology is mature in some contexts, not all. Network scalability, interoperability between different systems and a shared regulatory framework remain open issues. Collaboration between competitors is another obstacle: a ledger works only if every participant in the chain agrees to feed it reliable data.',
+        text: 'The technology is mature in some contexts, but not all. Network scalability, interoperability between different systems and a shared regulatory framework remain open issues. Collaboration between competitors is another obstacle: a ledger works only if every participant in the chain agrees to feed it reliable data.',
       },
       {
         type: 'paragraph',
-        text: 'Many companies are already testing blockchain solutions in their supply chains. The strongest projects start from a precise problem: a certification to verify, a document that gets lost, a check that takes days. That is where a project’s value is measured.',
+        text: 'Many companies are already testing blockchain solutions in their supply chains. The strongest projects start with a specific problem: a certification to verify, a document that gets lost, a check that takes days. That is where a project’s value is measured.',
       },
       { type: 'heading', level: 2, text: 'A more verifiable supply chain' },
       {
         type: 'paragraph',
-        text: 'The future of the supply chain will not be entirely on-chain, and it does not need to be. The point is to make the steps that matter verifiable, connecting existing systems to a shared ledger where it adds value, without moving the entire chain on-chain.',
+        text: 'The future of the supply chain will not be entirely on-chain, and it does not need to be. The aim is to make the steps that matter verifiable by connecting existing systems to a shared ledger where it adds value, rather than moving the entire chain onto one.',
       },
     ],
   },

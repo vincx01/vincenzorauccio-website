@@ -633,10 +633,10 @@ export const pages = {
       },
       recognition: {
         index: '05',
-        eyebrow: 'Recognition',
-        title: 'Recognition for work delivered.',
-        empty: 'Documented recognition will be published here.',
-        link: 'All recognition',
+        eyebrow: 'Awards & Recognition',
+        title: 'Awards and recognition.',
+        empty: 'Documented awards and recognition will be published here.',
+        link: 'View all awards and recognition',
       },
       contact: {
         eyebrow: 'Contact',
@@ -690,10 +690,10 @@ export const pages = {
         title: 'Italian and English.',
       },
       recognition: {
-        eyebrow: 'Recognition',
-        title: 'Professional recognition.',
+        eyebrow: 'Awards & Recognition',
+        title: 'Awards and recognition.',
         assignedTo: 'Awarded to ',
-        link: 'View recognition',
+        link: 'View awards and recognition',
       },
       contact: {
         eyebrow: 'Contact',
@@ -742,13 +742,13 @@ export const pages = {
     },
     recognition: {
       meta: {
-        title: 'Recognition — Vincenzo Rauccio',
+        title: 'Awards & Recognition — Vincenzo Rauccio',
         description:
-          'Documented recognition for Vincenzo Rauccio and Synclin, including the Pan Finance Awards 2026 and Most Influential FinTech Entrepreneur 2025 (Italy).',
+          'Documented awards and recognition involving Vincenzo Rauccio and Synclin, including the Pan Finance Awards 2026 and Most Influential FinTech Entrepreneur 2025 (Italy).',
       },
-      eyebrow: 'Recognition',
-      title: 'Professional recognition.',
-      lead: 'I publish only verifiable recognition with a public source. Awards, speaking engagements and publications are added when a reference is available.',
+      eyebrow: 'Awards & Recognition',
+      title: 'Awards and recognition.',
+      lead: 'Only awards and recognition that can be verified through a public source are published here. Speaking engagements and publications are added when a reference is available.',
       assignedTo: 'Awarded to ',
       article: 'Read the announcement',
       speaking: {

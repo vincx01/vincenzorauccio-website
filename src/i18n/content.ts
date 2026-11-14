@@ -347,7 +347,7 @@ const recognitionContent: Record<Locale, LocalizedRecognition[]> = {
       recipient: 'Synclin',
       recipientRole: 'Vincenzo Rauccio, Co-Founder & CEO at Synclin',
       summary:
-        'Synclin received the Best Professional Booking Management Platform - Italy 2026 award at the Pan Finance Awards 2026. The recognition reflects the product development work and the commitment to simplifying professional booking management.',
+        'Synclin was named Best Professional Booking Management Platform - Italy 2026 at the Pan Finance Awards 2026. The recognition reflects the work behind the product and the commitment to simplifying professional booking management.',
       links: [
         {
           label: 'Read the official Synclin article',
