@@ -231,7 +231,7 @@ export const pages = {
           'Scrivi a Vincenzo Rauccio per una consulenza, una collaborazione o un confronto su Blockchain, pagamenti digitali e innovazione.',
       },
       eyebrow: 'Contatti',
-      title: 'Un confronto diretto, senza passaggi inutili.',
+      title: 'Un confronto diretto, senza passaggi superflui',
       lead: 'Per una consulenza, una collaborazione o un confronto su Blockchain, pagamenti digitali e innovazione.',
       body: 'Non c’è un modulo da compilare. La mail è il canale più diretto: scrivi due righe sul contesto e su ciò che ti interessa.',
       email: 'Email',
