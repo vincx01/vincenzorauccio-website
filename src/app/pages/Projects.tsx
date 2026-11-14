@@ -1,5 +1,6 @@
-import { projects } from '../../data/projects'
-import { site } from '../../data/site'
+import { localizedProjects, localizedSite } from '../../i18n/content'
+import { useLocale } from '../../i18n/core'
+import { localizedPages } from '../../i18n/pages'
 import { Container } from '../components/layout/Container'
 import { Section } from '../components/layout/Section'
 import { Button } from '../components/ui/Button'
@@ -8,11 +9,16 @@ import { TextLink } from '../components/ui/TextLink'
 import { usePageMeta } from '../lib/meta'
 
 export function Projects() {
+  const { locale } = useLocale()
+  const site = localizedSite(locale)
+  const projects = localizedProjects(locale)
+  const copy = localizedPages(locale).projects
+
   usePageMeta({
-    title: 'Progetti — Vincenzo Rauccio',
-    description:
-      'Synclin, la piattaforma di gestione appuntamenti co-fondata da Vincenzo Rauccio: prenotazioni, pagamenti e comunicazione in un unico prodotto.',
+    title: copy.meta.title,
+    description: copy.meta.description,
     path: '/projects',
+    locale,
   })
 
   return (
@@ -21,20 +27,15 @@ export function Projects() {
         <Container width="wide" className="pt-[clamp(3rem,6vw,5rem)]">
           <div className="flex items-center gap-4 border-t border-line pt-4">
             <span className="eyebrow text-ink-faint">03</span>
-            <span className="eyebrow text-ink-muted">Progetti</span>
+            <span className="eyebrow text-ink-muted">{copy.eyebrow}</span>
           </div>
 
           <div className="mt-8 grid gap-8 lg:grid-cols-12 lg:gap-[var(--grid-gap)]">
             <div className="lg:col-span-8">
-              <h1 className="max-w-[18ch] font-display text-headline">
-                Synclin, dall’idea al prodotto.
-              </h1>
+              <h1 className="max-w-[18ch] font-display text-headline">{copy.title}</h1>
             </div>
             <div className="lg:col-span-4 lg:pt-2">
-              <p className="text-body text-ink-muted">
-                Synclin nasce per semplificare la gestione delle prenotazioni professionali.
-                Qui trovi il contesto del prodotto, i servizi e i riferimenti pubblici.
-              </p>
+              <p className="text-body text-ink-muted">{copy.lead}</p>
             </div>
           </div>
         </Container>
@@ -90,10 +91,10 @@ export function Projects() {
 
                 <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3">
                   <Button href={project.href} size="sm" arrow>
-                    Visita il sito
+                    {copy.visit}
                   </Button>
                   {project.articleSlug && (
-                    <TextLink to={`/${project.articleSlug}`}>Leggi l’articolo</TextLink>
+                    <TextLink to={`/${project.articleSlug}`}>{copy.article}</TextLink>
                   )}
                 </div>
               </div>
@@ -102,26 +103,20 @@ export function Projects() {
         </Section>
       ))}
 
-
       <Section tone="dark">
         <Container>
           <div className="grid gap-10 lg:grid-cols-12 lg:gap-[var(--grid-gap)]">
             <div className="lg:col-span-7">
-              <p className="eyebrow text-ink-faint">Contatti</p>
-              <h2 className="mt-4 max-w-[18ch] font-display text-title">
-                Hai un progetto da discutere?
-              </h2>
-              <p className="text-measure mt-5 text-lead text-ink-muted">
-                Scrivimi per una consulenza, una collaborazione o un confronto su prodotto e
-                tecnologia.
-              </p>
+              <p className="eyebrow text-ink-faint">{copy.contact.eyebrow}</p>
+              <h2 className="mt-4 max-w-[18ch] font-display text-title">{copy.contact.title}</h2>
+              <p className="text-measure mt-5 text-lead text-ink-muted">{copy.contact.lead}</p>
             </div>
             <div className="flex flex-wrap items-start gap-3 lg:col-span-4 lg:col-start-9 lg:justify-end">
               <Button href={`mailto:${site.email}`} arrow>
-                Scrivimi
+                {copy.contact.primary}
               </Button>
               <Button to="/about" variant="secondary">
-                Chi sono
+                {copy.contact.secondary}
               </Button>
             </div>
           </div>

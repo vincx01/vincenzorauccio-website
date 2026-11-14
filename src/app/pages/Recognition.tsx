@@ -1,9 +1,9 @@
 import { ArrowUpRight } from 'lucide-react'
-import { Link } from 'react-router'
 
-import { articles } from '../../data/articles'
-import { recognition } from '../../data/recognition'
-import { site } from '../../data/site'
+import { getArticles } from '../../data/articles'
+import { localizedRecognition, localizedSite } from '../../i18n/content'
+import { LocaleLink as Link, useLocale } from '../../i18n/core'
+import { localizedPages } from '../../i18n/pages'
 import { ArticleRow } from '../components/editorial/ArticleRow'
 import { Container } from '../components/layout/Container'
 import { Section } from '../components/layout/Section'
@@ -13,24 +13,28 @@ import { Media } from '../components/ui/Media'
 import { TextLink } from '../components/ui/TextLink'
 import { usePageMeta } from '../lib/meta'
 
-/** Un articolo per URL canonico, così la pubblicazione duplicata non compare due volte. */
-const publications = articles.filter((article) => article.canonicalPath === `/${article.slug}`)
-
 export function Recognition() {
+  const { locale } = useLocale()
+  const site = localizedSite(locale)
+  const recognition = localizedRecognition(locale)
+  const copy = localizedPages(locale).recognition
+  const articles = getArticles(locale)
+  const publications = articles.filter((article) => article.canonicalPath === `/${article.slug}`)
+
   usePageMeta({
-    title: 'Riconoscimenti — Vincenzo Rauccio',
-    description:
-      'I riconoscimenti documentati di Vincenzo Rauccio e di Synclin, tra cui i Pan Finance Awards 2026 e il premio Most Influential FinTech Entrepreneur 2025 (Italy).',
+    title: copy.meta.title,
+    description: copy.meta.description,
     path: '/recognition',
+    locale,
     jsonLd: {
       '@context': 'https://schema.org',
       '@type': 'ProfilePage',
-      url: `${site.url}/recognition`,
-      inLanguage: 'it',
+      url: `${site.url}/${locale}/recognition`,
+      inLanguage: locale,
       mainEntity: {
         '@type': 'Person',
         name: site.name,
-        url: site.url,
+        url: `${site.url}/${locale}/`,
         jobTitle: site.role,
         award: recognition
           .filter((entry) => !entry.recipient)
@@ -45,20 +49,15 @@ export function Recognition() {
         <Container width="wide" className="pt-[clamp(3rem,6vw,5rem)]">
           <div className="flex items-center gap-4 border-t border-line pt-4">
             <span className="eyebrow text-ink-faint">—</span>
-            <span className="eyebrow text-ink-muted">Riconoscimenti</span>
+            <span className="eyebrow text-ink-muted">{copy.eyebrow}</span>
           </div>
 
           <div className="mt-7 grid gap-8 lg:grid-cols-12 lg:gap-[var(--grid-gap)]">
             <div className="lg:col-span-8">
-              <h1 className="max-w-[17ch] font-display text-headline">
-                Riconoscimenti professionali.
-              </h1>
+              <h1 className="max-w-[17ch] font-display text-headline">{copy.title}</h1>
             </div>
             <div className="lg:col-span-4 lg:pt-2">
-              <p className="text-body text-ink-muted">
-                Raccolgo solo riconoscimenti verificabili, con una fonte pubblica. Premi,
-                interventi e pubblicazioni entrano quando il riferimento è disponibile.
-              </p>
+              <p className="text-body text-ink-muted">{copy.lead}</p>
             </div>
           </div>
         </Container>
@@ -88,7 +87,7 @@ export function Recognition() {
                 )}
                 {entry.recipient && (
                   <p className="mt-3 text-small text-ink">
-                    <span className="text-ink-faint">Assegnato a </span>
+                    <span className="text-ink-faint">{copy.assignedTo}</span>
                     {entry.recipient}
                     {entry.recipientRole ? ` · ${entry.recipientRole}` : ''}
                   </p>
@@ -119,7 +118,7 @@ export function Recognition() {
 
                 {entry.articleSlug && (
                   <div className="mt-6">
-                    <TextLink to={`/${entry.articleSlug}`}>Leggi l’annuncio</TextLink>
+                    <TextLink to={`/${entry.articleSlug}`}>{copy.article}</TextLink>
                   </div>
                 )}
               </div>
@@ -133,27 +132,21 @@ export function Recognition() {
           <div className="grid gap-10 lg:grid-cols-12 lg:gap-[var(--grid-gap)]">
             <div className="lg:col-span-5">
               <div className="flex items-center gap-4 border-t border-line pt-4">
-                <span className="eyebrow text-ink-faint">01</span>
-                <span className="eyebrow text-ink-muted">Speaking e contributi pubblici</span>
+                <span className="eyebrow text-ink-faint">{copy.speaking.index}</span>
+                <span className="eyebrow text-ink-muted">{copy.speaking.eyebrow}</span>
               </div>
               <h2 className="mt-6 max-w-[16ch] font-display text-title">
-                Interventi e conversazioni pubbliche.
+                {copy.speaking.title}
               </h2>
             </div>
 
             <div className="lg:col-span-6 lg:col-start-7">
               <Reveal>
-                <p className="text-lead text-ink-muted">
-                  Spiegare Blockchain, pagamenti e innovazione finanziaria a chi li costruisce o li
-                  deve governare fa parte del lavoro.
-                </p>
-                <p className="mt-5 text-body text-ink-muted">
-                  Sto raccogliendo conferenze, panel, workshop e interviste. Ogni appuntamento sarà
-                  pubblicato con evento, data e riferimento, dopo conferma.
-                </p>
+                <p className="text-lead text-ink-muted">{copy.speaking.lead}</p>
+                <p className="mt-5 text-body text-ink-muted">{copy.speaking.body}</p>
                 <div className="mt-8 flex flex-wrap items-center gap-3">
                   <Button to="/contact" arrow>
-                    Scrivimi per un intervento
+                    {copy.speaking.cta}
                   </Button>
                 </div>
               </Reveal>
@@ -165,15 +158,14 @@ export function Recognition() {
       <Section>
         <Container width="wide">
           <div className="flex items-baseline justify-between gap-4 border-t border-line pt-4">
-            <h2 className="eyebrow text-ink-muted">Pubblicazioni selezionate</h2>
+            <h2 className="eyebrow text-ink-muted">{copy.publications.title}</h2>
             <Link to="/insights" className="link-quiet text-small">
-              Tutti gli articoli
+              {copy.publications.all}
             </Link>
           </div>
 
           <p className="text-measure mt-5 text-body text-ink-muted">
-            Articoli pubblicati su governance Blockchain, pagamenti digitali, Web3 e innovazione
-            finanziaria.
+            {copy.publications.lead}
           </p>
 
           <ul className="mt-8">

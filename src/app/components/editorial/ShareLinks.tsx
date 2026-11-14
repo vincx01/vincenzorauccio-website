@@ -1,7 +1,12 @@
 import { useEffect, useState } from 'react'
 
+import { useLocale } from '../../../i18n/core'
+import { localizedUi } from '../../../i18n/ui'
+
 /** Sharing targets build from the canonical article URL. */
 export function ShareLinks({ url, title }: { url: string; title: string }) {
+  const { locale } = useLocale()
+  const copy = localizedUi(locale).share
   const [copied, setCopied] = useState(false)
   const encodedUrl = encodeURIComponent(url)
   const encodedTitle = encodeURIComponent(title)
@@ -51,7 +56,7 @@ export function ShareLinks({ url, title }: { url: string; title: string }) {
 
   return (
     <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-      <span className="eyebrow text-ink-faint">Condividi</span>
+      <span className="eyebrow text-ink-faint">{copy.label}</span>
       {shareTargets.map((target) => (
         <a
           key={target.label}
@@ -64,10 +69,10 @@ export function ShareLinks({ url, title }: { url: string; title: string }) {
         </a>
       ))}
       <button type="button" onClick={copyLink} className="link-quiet text-small">
-        {copied ? 'Link copiato' : 'Copia link'}
+        {copied ? copy.copied : copy.copy}
       </button>
       <span role="status" aria-live="polite" className="sr-only">
-        {copied ? 'Link copiato negli appunti' : ''}
+        {copied ? copy.copiedAnnouncement : ''}
       </span>
     </div>
   )

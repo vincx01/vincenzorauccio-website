@@ -1,10 +1,14 @@
 import { ArrowUpRight } from 'lucide-react'
-import { Link } from 'react-router'
 
 import type { Article } from '../../../data/articles'
+import { LocaleLink as Link, useLocale } from '../../../i18n/core'
+import { localizedUi } from '../../../i18n/ui'
 
 /** Archive row: date, title, excerpt, reading time and category. */
 export function ArticleRow({ article }: { article: Article }) {
+  const { locale } = useLocale()
+  const copy = localizedUi(locale)
+
   return (
     <Link
       to={`/${article.slug}`}
@@ -17,7 +21,9 @@ export function ArticleRow({ article }: { article: Article }) {
         <span aria-hidden="true" className="text-caption text-ink-faint">
           ·
         </span>
-        <span className="eyebrow text-ink-faint">{article.readingMinutes} min di lettura</span>
+        <span className="eyebrow text-ink-faint">
+          {copy.articleRow.readingTime(article.readingMinutes)}
+        </span>
       </div>
 
       <div className="md:col-span-7">

@@ -9,19 +9,20 @@ import {
   useState,
   type ReactNode,
 } from 'react'
-import { Link } from 'react-router'
 
+import { LocaleLink as Link, useLocale } from '../../../i18n/core'
+import { localizedUi } from '../../../i18n/ui'
 import { Button } from '../ui/Button'
 import { Container } from '../layout/Container'
 
 /**
  * Consenso ai cookie.
  *
- * Il sito non installa cookie propri e non carica strumenti analitici o di
- * marketing. L’unica tecnologia usata è localStorage, per ricordare la scelta
- * dell’utente. Il consenso viene comunque raccolto e versionato, così le
- * categorie opzionali restano spente finché non c’è un’autorizzazione
- * esplicita e le preferenze possono essere revocate dal footer.
+ * Il sito non installa cookie di profilazione e non carica strumenti
+ * analitici o di marketing. Le tecnologie usate sono localStorage per il
+ * consenso e un cookie tecnico per la lingua. Il consenso viene raccolto e
+ * versionato, così le categorie opzionali restano spente finché non c’è
+ * un’autorizzazione esplicita.
  */
 
 const STORAGE_KEY = 'vr-cookie-consent'
@@ -55,7 +56,7 @@ const ConsentContext = createContext<ConsentContextValue | null>(null)
 
 export function useConsent(): ConsentContextValue {
   const value = useContext(ConsentContext)
-  if (!value) throw new Error('useConsent deve essere usato dentro ConsentProvider')
+  if (!value) throw new Error('useConsent must be used inside ConsentProvider')
   return value
 }
 
@@ -157,6 +158,8 @@ export function ConsentProvider({ children }: { children: ReactNode }) {
 
 function CookieBanner() {
   const { consent, preferencesOpen, acceptAll, rejectAll, openPreferences } = useConsent()
+  const { locale } = useLocale()
+  const copy = localizedUi(locale).consent
 
   if (consent || preferencesOpen) return null
 
@@ -170,31 +173,31 @@ function CookieBanner() {
         <div className="grid gap-5 lg:grid-cols-12 lg:items-end lg:gap-[var(--grid-gap)]">
           <div className="lg:col-span-7">
             <p className="eyebrow text-ink-faint" id="cookie-banner-title">
-              Cookie e preferenze
+              {copy.bannerTitle}
             </p>
-            <p className="mt-2 max-w-[62ch] text-small text-ink-muted">
-              Questo sito non usa cookie di profilazione. Salva solo la tua scelta in memoria locale;
-              le categorie opzionali restano spente finché non saranno attivati gli strumenti che le
-              richiedono.
-            </p>
+            <p className="mt-2 max-w-[62ch] text-small text-ink-muted">{copy.bannerText}</p>
             <p className="mt-2 text-caption text-ink-faint">
-              Leggi la{' '}
+              {copy.readCookie}{' '}
               <Link to="/cookie-policy" className="link-quiet">
-                cookie policy
+                {copy.cookiePolicy}
               </Link>{' '}
-              e l’<Link to="/privacy" className="link-quiet">informativa privacy</Link>.
+              {copy.and}
+              <Link to="/privacy" className="link-quiet">
+                {copy.privacy}
+              </Link>
+              .
             </p>
           </div>
 
           <div className="flex flex-col gap-2 sm:flex-row lg:col-span-5 lg:justify-end">
             <Button onClick={acceptAll} size="sm" className="justify-center">
-              Accetta tutti
+              {copy.acceptAll}
             </Button>
             <Button onClick={rejectAll} size="sm" variant="secondary" className="justify-center">
-              Rifiuta tutti
+              {copy.rejectAll}
             </Button>
             <Button onClick={openPreferences} size="sm" variant="secondary" className="justify-center">
-              Personalizza
+              {copy.customize}
             </Button>
           </div>
         </div>
@@ -202,24 +205,6 @@ function CookieBanner() {
     </div>
   )
 }
-
-const CATEGORY_COPY = {
-  necessary: {
-    title: 'Preferenze necessarie',
-    description:
-      'Servono a ricordare la tua scelta. Non richiedono consenso e non possono essere disattivate.',
-  },
-  analytics: {
-    title: 'Cookie analitici',
-    description:
-      'Aiuterebbero a capire come viene usato il sito. Al momento non è installato alcuno strumento analitico: la preferenza viene registrata per il futuro.',
-  },
-  marketing: {
-    title: 'Cookie di marketing',
-    description:
-      'Servirebbero a mostrare contenuti o annunci in base ai tuoi interessi. Al momento non è attivo alcuno strumento di marketing.',
-  },
-} as const
 
 function CookiePreferences() {
   const {
@@ -230,6 +215,8 @@ function CookiePreferences() {
     acceptAll,
     rejectAll,
   } = useConsent()
+  const { locale } = useLocale()
+  const copy = localizedUi(locale).consent
 
   const [draft, setDraft] = useState<Preferences>({
     analytics: consent?.analytics ?? false,
@@ -311,15 +298,15 @@ function CookiePreferences() {
       >
         <div className="flex items-start justify-between gap-6">
           <div>
-            <p className="eyebrow text-ink-faint">Privacy</p>
+            <p className="eyebrow text-ink-faint">{copy.privacyLabel}</p>
             <h2 id="cookie-preferences-title" className="mt-2 font-display text-title">
-              Preferenze cookie
+              {copy.preferencesTitle}
             </h2>
           </div>
           <button
             ref={closeRef}
             type="button"
-            aria-label="Chiudi le preferenze cookie"
+            aria-label={copy.closePreferences}
             onClick={closePreferences}
             className="grid size-9 shrink-0 place-items-center border border-line-strong transition-colors hover:border-ink"
           >
@@ -327,33 +314,30 @@ function CookiePreferences() {
           </button>
         </div>
 
-        <p className="text-measure mt-5 text-small text-ink-muted">
-          Scegli quali categorie autorizzare. Le preferenze necessarie restano sempre attive. Puoi
-          cambiare idea in qualsiasi momento dal link nel footer.
-        </p>
+        <p className="text-measure mt-5 text-small text-ink-muted">{copy.intro}</p>
 
         <div className="mt-7 divide-y divide-line border-y border-line">
           <div className="flex items-start justify-between gap-6 py-5">
             <div>
-              <p className="text-small font-medium">{CATEGORY_COPY.necessary.title}</p>
+              <p className="text-small font-medium">{copy.necessaryTitle}</p>
               <p className="mt-1 max-w-[52ch] text-caption text-ink-muted">
-                {CATEGORY_COPY.necessary.description}
+                {copy.necessaryDescription}
               </p>
             </div>
             <input
               type="checkbox"
               checked
               disabled
-              aria-label={`${CATEGORY_COPY.necessary.title}, sempre attivi`}
+              aria-label={`${copy.necessaryTitle}, ${copy.alwaysActive}`}
               className="mt-1 size-4 shrink-0 accent-[var(--surface-accent)]"
             />
           </div>
 
           <label className="flex cursor-pointer items-start justify-between gap-6 py-5">
             <span>
-              <span className="block text-small font-medium">{CATEGORY_COPY.analytics.title}</span>
+              <span className="block text-small font-medium">{copy.analyticsTitle}</span>
               <span className="mt-1 block max-w-[52ch] text-caption text-ink-muted">
-                {CATEGORY_COPY.analytics.description}
+                {copy.analyticsDescription}
               </span>
             </span>
             <input
@@ -368,9 +352,9 @@ function CookiePreferences() {
 
           <label className="flex cursor-pointer items-start justify-between gap-6 py-5">
             <span>
-              <span className="block text-small font-medium">{CATEGORY_COPY.marketing.title}</span>
+              <span className="block text-small font-medium">{copy.marketingTitle}</span>
               <span className="mt-1 block max-w-[52ch] text-caption text-ink-muted">
-                {CATEGORY_COPY.marketing.description}
+                {copy.marketingDescription}
               </span>
             </span>
             <input
@@ -386,23 +370,23 @@ function CookiePreferences() {
 
         <div className="mt-6 flex flex-col-reverse gap-2 sm:flex-row sm:flex-wrap sm:justify-end">
           <Button variant="secondary" size="sm" onClick={rejectAll} className="justify-center">
-            Rifiuta tutti
+            {copy.rejectAll}
           </Button>
           <Button variant="secondary" size="sm" onClick={acceptAll} className="justify-center">
-            Accetta tutti
+            {copy.acceptAll}
           </Button>
           <Button size="sm" onClick={() => savePreferences(draft)} className="justify-center">
-            Salva preferenze
+            {copy.save}
           </Button>
         </div>
 
         <p className="mt-5 text-caption text-ink-faint">
           <Link to="/cookie-policy" className="link-quiet">
-            Cookie policy
+            {copy.cookiePolicy}
           </Link>
           <span aria-hidden="true"> · </span>
           <Link to="/privacy" className="link-quiet">
-            Informativa privacy
+            {copy.privacy}
           </Link>
         </p>
       </div>

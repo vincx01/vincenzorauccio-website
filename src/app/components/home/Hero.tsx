@@ -8,6 +8,8 @@ import {
 } from 'motion/react'
 import { useRef, type PointerEvent as ReactPointerEvent } from 'react'
 
+import { useLocale } from '../../../i18n/core'
+import { localizedPages } from '../../../i18n/pages'
 import { EASE_OUT } from '../../lib/motion'
 import { Container } from '../layout/Container'
 import { Section } from '../layout/Section'
@@ -23,6 +25,8 @@ import { LatticeField } from './LatticeField'
  */
 export function Hero() {
   const reduce = useReducedMotion()
+  const { locale } = useLocale()
+  const copy = localizedPages(locale).home.hero
   const stageRef = useRef<HTMLDivElement>(null)
 
   const { scrollYProgress } = useScroll({
@@ -66,27 +70,26 @@ export function Hero() {
         <div ref={stageRef} className="grid items-center gap-12 lg:grid-cols-12 lg:gap-[var(--grid-gap)]">
           <div className="lg:col-span-7">
             <motion.p {...rise(0)} className="eyebrow text-ink-muted">
-              Consulenza · Finanza · Innovazione
+              {copy.eyebrow}
             </motion.p>
 
             <motion.h1
               {...rise(0.08)}
               className="mt-6 max-w-[19ch] font-display text-hero text-balance"
             >
-              Tecnologia e finanza, dentro i processi.
+              {copy.title}
             </motion.h1>
 
             <motion.p {...rise(0.16)} className="text-measure mt-7 text-lead text-ink-muted">
-              In PwC Italy lavoro su trasformazione digitale e innovazione tecnologica per il
-              settore Financial Services. Mi occupo di Blockchain, pagamenti digitali e Web3.
+              {copy.lead}
             </motion.p>
 
             <motion.div {...rise(0.24)} className="mt-9 flex flex-wrap items-center gap-3">
               <Button to="/about" arrow>
-                Chi sono
+                {copy.primary}
               </Button>
               <Button to="/contact" variant="secondary">
-                Scrivimi
+                {copy.secondary}
               </Button>
             </motion.div>
 
@@ -94,18 +97,12 @@ export function Hero() {
               {...rise(0.32)}
               className="mt-11 grid gap-x-8 gap-y-4 border-t border-line pt-5 sm:grid-cols-3"
             >
-              <div>
-                <dt className="eyebrow text-ink-faint">Ruolo</dt>
-                <dd className="mt-1.5 text-small text-ink-muted">Consulente Blockchain</dd>
-              </div>
-              <div>
-                <dt className="eyebrow text-ink-faint">Oggi</dt>
-                <dd className="mt-1.5 text-small text-ink-muted">Consultant, PwC Italy</dd>
-              </div>
-              <div>
-                <dt className="eyebrow text-ink-faint">Focus</dt>
-                <dd className="mt-1.5 text-small text-ink-muted">Pagamenti digitali</dd>
-              </div>
+              {copy.facts.map((fact) => (
+                <div key={fact.label}>
+                  <dt className="eyebrow text-ink-faint">{fact.label}</dt>
+                  <dd className="mt-1.5 text-small text-ink-muted">{fact.value}</dd>
+                </div>
+              ))}
             </motion.dl>
           </div>
 
@@ -137,15 +134,13 @@ export function Hero() {
 
             <div className="pointer-events-none absolute inset-0 flex flex-col justify-between p-6 sm:p-8">
               <div className="flex items-start justify-between gap-4">
-                <Eyebrow className="text-ink-faint">Topologia di rete</Eyebrow>
+                <Eyebrow className="text-ink-faint">{copy.visualEyebrow}</Eyebrow>
                 <Eyebrow className="text-ink-faint">VR</Eyebrow>
               </div>
               <div>
-                <p className="font-display text-subtitle">Sistemi distribuiti,</p>
-                <p className="font-display text-subtitle text-ink-muted">verificabili per costruzione.</p>
-                <p className="mt-4 text-caption text-ink-faint">
-                  Blockchain · Pagamenti digitali · Innovazione
-                </p>
+                <p className="font-display text-subtitle">{copy.visualLine1}</p>
+                <p className="font-display text-subtitle text-ink-muted">{copy.visualLine2}</p>
+                <p className="mt-4 text-caption text-ink-faint">{copy.visualCaption}</p>
               </div>
             </div>
           </motion.div>

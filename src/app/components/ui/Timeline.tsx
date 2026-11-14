@@ -1,5 +1,7 @@
 import { motion, useReducedMotion } from 'motion/react'
 
+import { useLocale } from '../../../i18n/core'
+import { localizedUi } from '../../../i18n/ui'
 import { cx } from '../../lib/cx'
 import { EASE_OUT } from '../../lib/motion'
 
@@ -19,11 +21,12 @@ export interface TimelineEntry {
  */
 export function Timeline({ items, className }: { items: TimelineEntry[]; className?: string }) {
   const reduce = useReducedMotion()
+  const { locale } = useLocale()
 
   if (items.length === 0) {
     return (
       <p className="border-t border-line pt-6 text-small text-ink-faint">
-        Le voci di esperienza saranno aggiunte con i contenuti verificati.
+        {localizedUi(locale).common.emptyExperience}
       </p>
     )
   }

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
-import { site } from '../../../data/site'
+import { localizedSite } from '../../../i18n/content'
+import { useLocale } from '../../../i18n/core'
 import { cx } from '../../lib/cx'
 
 /**
@@ -21,6 +22,8 @@ export function Logo({
   className?: string
 }) {
   const [failed, setFailed] = useState(false)
+  const { locale } = useLocale()
+  const site = localizedSite(locale)
 
   return (
     <span className={cx('flex min-w-0 items-center gap-3', className)}>

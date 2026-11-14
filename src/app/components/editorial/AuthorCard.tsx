@@ -1,11 +1,15 @@
-import { Link } from 'react-router'
-
-import { site } from '../../../data/site'
+import { localizedSite } from '../../../i18n/content'
+import { LocaleLink as Link, useLocale } from '../../../i18n/core'
+import { localizedUi } from '../../../i18n/ui'
 import { cx } from '../../lib/cx'
 import { linkedInUrl } from '../../lib/site-links'
 
 /** Author block built only from published profile facts. */
 export function AuthorCard({ className }: { className?: string }) {
+  const { locale } = useLocale()
+  const site = localizedSite(locale)
+  const copy = localizedUi(locale).author
+
   return (
     <div className={cx('border-t border-line pt-5', className)}>
       <div className="flex items-center gap-3">
@@ -23,7 +27,7 @@ export function AuthorCard({ className }: { className?: string }) {
       <p className="mt-4 text-small text-ink-muted">{site.descriptor}</p>
       <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2">
         <Link to="/about" className="link-quiet text-small">
-          Chi sono
+          {copy.about}
         </Link>
         <a
           href={linkedInUrl}
@@ -34,7 +38,7 @@ export function AuthorCard({ className }: { className?: string }) {
           LinkedIn
         </a>
         <Link to="/contact" className="link-quiet text-small">
-          Contatti
+          {copy.contact}
         </Link>
       </div>
     </div>

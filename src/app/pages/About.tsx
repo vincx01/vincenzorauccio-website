@@ -1,6 +1,6 @@
-import { languages, skillGroups } from '../../data/career'
-import { recognition } from '../../data/recognition'
-import { site } from '../../data/site'
+import { localizedCareer, localizedRecognition, localizedSite } from '../../i18n/content'
+import { useLocale } from '../../i18n/core'
+import { localizedPages } from '../../i18n/pages'
 import { Container } from '../components/layout/Container'
 import { Section } from '../components/layout/Section'
 import { SectionHeading } from '../components/layout/SectionHeading'
@@ -9,17 +9,21 @@ import { Button } from '../components/ui/Button'
 import { TextLink } from '../components/ui/TextLink'
 import { usePageMeta } from '../lib/meta'
 
-const award = recognition.find((entry) => !entry.recipient)
-const professionalSkills = skillGroups.find((group) => group.title === 'Competenze professionali')?.items ?? []
-const italian = languages.find((entry) => entry.language === 'Italiano')
-const english = languages.find((entry) => entry.language === 'Inglese')
-
 export function About() {
+  const { locale } = useLocale()
+  const site = localizedSite(locale)
+  const career = localizedCareer(locale)
+  const copy = localizedPages(locale).about
+
+  const award = localizedRecognition(locale).find((entry) => !entry.recipient)
+  const professionalSkills =
+    career.skillGroups.find((group) => group.title === copy.skills.professionalLabel)?.items ?? []
+
   usePageMeta({
-    title: 'Chi sono — Vincenzo Rauccio',
-    description:
-      'Vincenzo Rauccio è Consulente Blockchain e speaker. Lavora in PwC Italy su trasformazione digitale e innovazione tecnologica per il settore Financial Services.',
+    title: copy.meta.title,
+    description: copy.meta.description,
     path: '/about',
+    locale,
   })
 
   return (
@@ -28,19 +32,13 @@ export function About() {
         <Container width="wide" className="pt-[clamp(3rem,6vw,5rem)]">
           <div className="flex items-center gap-4 border-t border-line pt-4">
             <span className="eyebrow text-ink-faint">01</span>
-            <span className="eyebrow text-ink-muted">Chi sono</span>
+            <span className="eyebrow text-ink-muted">{copy.eyebrow}</span>
           </div>
 
           <div className="mt-8 grid gap-10 lg:grid-cols-12 lg:items-start lg:gap-[var(--grid-gap)]">
             <div className="lg:col-span-6">
-              <h1 className="max-w-[20ch] font-display text-headline">
-                Tecnologia e innovazione dentro i processi.
-              </h1>
-              <p className="text-measure mt-7 text-lead text-ink-muted">
-                Mi chiamo Vincenzo Rauccio. Lavoro come Consulente Blockchain e speaker. In PwC
-                Italy seguo iniziative di trasformazione digitale per il settore Financial Services;
-                nell’Ordine degli Ingegneri della Provincia di Caserta coordino il gruppo Blockchain.
-              </p>
+              <h1 className="max-w-[20ch] font-display text-headline">{copy.title}</h1>
+              <p className="text-measure mt-7 text-lead text-ink-muted">{copy.lead}</p>
             </div>
 
             <figure className="lg:col-span-4 lg:col-start-9 lg:justify-self-end">
@@ -50,7 +48,7 @@ export function About() {
                 sizes="(min-width: 1024px) 352px, 90vw"
                 width={1090}
                 height={1443}
-                alt="Ritratto di Vincenzo Rauccio, Consulente Blockchain."
+                alt={copy.imageAlt}
                 loading="eager"
                 decoding="async"
                 className="mx-auto h-auto w-full max-w-[22rem] sm:max-w-[26rem] lg:mx-0 lg:max-w-[22rem]"
@@ -60,30 +58,26 @@ export function About() {
 
           <dl className="mt-10 grid gap-x-8 border-t border-line sm:grid-cols-2 lg:grid-cols-3">
             <div className="border-b border-line py-3">
-              <dt className="eyebrow text-ink-faint">Ruolo</dt>
+              <dt className="eyebrow text-ink-faint">{copy.facts.role}</dt>
               <dd className="mt-1.5 text-small text-ink-muted">{site.role}</dd>
             </div>
             <div className="border-b border-line py-3">
-              <dt className="eyebrow text-ink-faint">Oggi</dt>
-              <dd className="mt-1.5 text-small text-ink-muted">Consultant, PwC Italy</dd>
+              <dt className="eyebrow text-ink-faint">{copy.facts.today}</dt>
+              <dd className="mt-1.5 text-small text-ink-muted">{copy.todayValue}</dd>
             </div>
             <div className="border-b border-line py-3">
-              <dt className="eyebrow text-ink-faint">Leadership</dt>
-              <dd className="mt-1.5 text-small text-ink-muted">
-                Blockchain Innovation Lead, Ordine degli Ingegneri di Caserta
-              </dd>
+              <dt className="eyebrow text-ink-faint">{copy.facts.leadership}</dt>
+              <dd className="mt-1.5 text-small text-ink-muted">{copy.leadershipValue}</dd>
             </div>
             <div className="border-b border-line py-3">
-              <dt className="eyebrow text-ink-faint">Focus</dt>
-              <dd className="mt-1.5 text-small text-ink-muted">
-                Blockchain, pagamenti digitali, Web3
-              </dd>
+              <dt className="eyebrow text-ink-faint">{copy.facts.focus}</dt>
+              <dd className="mt-1.5 text-small text-ink-muted">{copy.focusValue}</dd>
             </div>
             {award && (
               <div className="border-b border-line py-3">
-                <dt className="eyebrow text-ink-faint">Riconoscimento</dt>
+                <dt className="eyebrow text-ink-faint">{copy.facts.recognition}</dt>
                 <dd className="mt-1.5 text-small text-ink-muted">
-                  {award.title}, {award.date.toLowerCase()}
+                  {award.title}, {award.date}
                 </dd>
               </div>
             )}
@@ -96,35 +90,25 @@ export function About() {
           <div className="grid gap-10 lg:grid-cols-12 lg:gap-[var(--grid-gap)]">
             <div className="lg:col-span-5">
               <div className="flex items-center gap-4 border-t border-line pt-4">
-                <span className="eyebrow text-ink-faint">02</span>
-                <span className="eyebrow text-ink-muted">Il lavoro</span>
+                <span className="eyebrow text-ink-faint">{copy.work.index}</span>
+                <span className="eyebrow text-ink-muted">{copy.work.eyebrow}</span>
               </div>
-              <h2 className="mt-6 max-w-[16ch] font-display text-title">
-                Capire prima di costruire.
-              </h2>
+              <h2 className="mt-6 max-w-[16ch] font-display text-title">{copy.work.title}</h2>
             </div>
 
             <div className="lg:col-span-6 lg:col-start-7">
               <Reveal>
-                <p className="text-lead text-ink-muted">
-                  In PwC Italy lavoro su iniziative di trasformazione digitale e innovazione
-                  tecnologica per il settore Financial Services. Parto dall’analisi dei requisiti e
-                  dalla definizione funzionale delle soluzioni, collaborando con interlocutori
-                  business e tecnici.
-                </p>
-                <p className="mt-5 text-body text-ink-muted">
-                  Nell’Ordine degli Ingegneri della Provincia di Caserta coordino il gruppo di
-                  lavoro dedicato alla Blockchain e organizzo seminari tecnici sui framework
-                  tecnologici e normativi.
-                </p>
-                <p className="mt-5 text-body text-ink-muted">
-                  Accanto alla consulenza porto avanti Synclin, il prodotto che ho co-fondato, e
-                  svolgo attività di divulgazione: articoli, interventi e confronti pubblici su come
-                  la tecnologia cambia processi e organizzazioni.
-                </p>
+                {copy.work.paragraphs.map((paragraph, index) => (
+                  <p
+                    key={paragraph}
+                    className={index === 0 ? 'text-lead text-ink-muted' : 'mt-5 text-body text-ink-muted'}
+                  >
+                    {paragraph}
+                  </p>
+                ))}
 
                 <div className="mt-10 border-t border-line pt-5">
-                  <TextLink to="/experience">Guarda il percorso completo</TextLink>
+                  <TextLink to="/experience">{copy.work.link}</TextLink>
                 </div>
               </Reveal>
             </div>
@@ -135,27 +119,23 @@ export function About() {
       <Section id="competenze" tone="quiet">
         <Container>
           <SectionHeading
-            index="03"
-            eyebrow="Competenze"
-            title="Tecnica e metodo, con attenzione alla relazione."
-            description="Competenze tecniche e trasversali, raccolte per area. Il dettaglio completo è nella pagina Esperienza."
+            index={copy.skills.index}
+            eyebrow={copy.skills.eyebrow}
+            title={copy.skills.title}
+            description={copy.skills.description}
           />
 
           <div className="mt-10 grid gap-10 lg:grid-cols-12 lg:gap-[var(--grid-gap)]">
             <div className="lg:col-span-5">
-              <h3 className="text-subtitle">Programmazione e aree tecniche</h3>
-              <p className="mt-3 text-body text-ink-muted">
-                Python, C, JavaScript e Kotlin. Lavoro su System Integration, trasformazione
-                digitale, cybersecurity e Digital Assets, con un’attenzione particolare a
-                Blockchain, Web3, compliance e analisi funzionale.
-              </p>
+              <h3 className="text-subtitle">{copy.skills.technicalTitle}</h3>
+              <p className="mt-3 text-body text-ink-muted">{copy.skills.technicalText}</p>
               <p className="mt-5 text-small text-ink-muted">
-                {italian?.language}: {italian?.level}. {english?.language}: {english?.level}.
+                {career.languages.map((entry) => `${entry.language}: ${entry.level}`).join('. ')}.
               </p>
             </div>
 
             <div className="lg:col-span-6 lg:col-start-7">
-              <h3 className="eyebrow text-ink-faint">Competenze professionali</h3>
+              <h3 className="eyebrow text-ink-faint">{copy.skills.professionalLabel}</h3>
               <ul className="mt-3 border-t border-line">
                 {professionalSkills.map((skill) => (
                   <li key={skill} className="border-b border-line py-3 text-small text-ink-muted">
@@ -164,7 +144,7 @@ export function About() {
                 ))}
               </ul>
               <div className="mt-6">
-                <TextLink to="/experience#competenze">Competenze e percorso completo</TextLink>
+                <TextLink to="/experience#competenze">{copy.skills.link}</TextLink>
               </div>
             </div>
           </div>
@@ -176,37 +156,20 @@ export function About() {
           <div className="grid gap-10 lg:grid-cols-12 lg:gap-[var(--grid-gap)]">
             <div className="lg:col-span-5">
               <div className="flex items-center gap-4 border-t border-line pt-4">
-                <span className="eyebrow text-ink-faint">04</span>
-                <span className="eyebrow text-ink-muted">Come lavoro</span>
+                <span className="eyebrow text-ink-faint">{copy.method.index}</span>
+                <span className="eyebrow text-ink-muted">{copy.method.eyebrow}</span>
               </div>
-              <h2 className="mt-6 max-w-[15ch] font-display text-title">
-                Il metodo di lavoro.
-              </h2>
+              <h2 className="mt-6 max-w-[15ch] font-display text-title">{copy.method.title}</h2>
             </div>
 
             <div className="lg:col-span-7">
               <dl className="border-t border-line">
-                <div className="border-b border-line py-6">
-                  <dt className="text-subtitle">Prima il problema</dt>
-                  <dd className="mt-2 max-w-[56ch] text-small text-ink-muted">
-                    Una tecnologia non basta se il processo intorno non regge. Parto da cosa non
-                    funziona, da chi lo usa e da quali vincoli esistono.
-                  </dd>
-                </div>
-                <div className="border-b border-line py-6">
-                  <dt className="text-subtitle">Verificare prima di promettere</dt>
-                  <dd className="mt-2 max-w-[56ch] text-small text-ink-muted">
-                    Prototipi, scenari e limiti espliciti valgono più di una presentazione. Se
-                    qualcosa non regge, va detto prima.
-                  </dd>
-                </div>
-                <div className="border-b border-line py-6">
-                  <dt className="text-subtitle">Sistemi che restano comprensibili</dt>
-                  <dd className="mt-2 max-w-[56ch] text-small text-ink-muted">
-                    Documentazione, governance e competenze interne: un progetto deve poter vivere
-                    anche senza chi lo ha avviato.
-                  </dd>
-                </div>
+                {copy.method.entries.map((entry) => (
+                  <div key={entry.title} className="border-b border-line py-6">
+                    <dt className="text-subtitle">{entry.title}</dt>
+                    <dd className="mt-2 max-w-[56ch] text-small text-ink-muted">{entry.text}</dd>
+                  </div>
+                ))}
               </dl>
             </div>
           </div>
@@ -218,11 +181,11 @@ export function About() {
           <div className="grid gap-10 lg:grid-cols-12 lg:gap-[var(--grid-gap)]">
             <div className="lg:col-span-5">
               <div className="flex items-center gap-4 border-t border-line pt-4">
-                <span className="eyebrow text-ink-faint">05</span>
-                <span className="eyebrow text-ink-muted">Riconoscimenti</span>
+                <span className="eyebrow text-ink-faint">{copy.recognition.index}</span>
+                <span className="eyebrow text-ink-muted">{copy.recognition.eyebrow}</span>
               </div>
               <h2 className="mt-6 max-w-[16ch] font-display text-title">
-                Un riconoscimento al lavoro svolto.
+                {copy.recognition.title}
               </h2>
             </div>
 
@@ -236,12 +199,12 @@ export function About() {
                   </p>
                   <p className="mt-4 max-w-[56ch] text-small text-ink-muted">{award.summary}</p>
                   <div className="mt-5">
-                    <TextLink to="/recognition">Tutti i riconoscimenti</TextLink>
+                    <TextLink to="/recognition">{copy.recognition.link}</TextLink>
                   </div>
                 </div>
               ) : (
                 <p className="border-t border-line pt-5 text-small text-ink-muted">
-                  I riconoscimenti documentati saranno pubblicati qui.
+                  {copy.recognition.empty}
                 </p>
               )}
             </div>
@@ -253,20 +216,16 @@ export function About() {
         <Container>
           <div className="grid gap-10 lg:grid-cols-12 lg:gap-[var(--grid-gap)]">
             <div className="lg:col-span-7">
-              <p className="eyebrow text-ink-faint">Contatti</p>
-              <h2 className="mt-4 max-w-[18ch] font-display text-title">
-                Se vuoi parlarne, scrivimi.
-              </h2>
-              <p className="text-measure mt-5 text-lead text-ink-muted">
-                Per parlare di un progetto, di una collaborazione o di un percorso di consulenza.
-              </p>
+              <p className="eyebrow text-ink-faint">{copy.contact.eyebrow}</p>
+              <h2 className="mt-4 max-w-[18ch] font-display text-title">{copy.contact.title}</h2>
+              <p className="text-measure mt-5 text-lead text-ink-muted">{copy.contact.lead}</p>
             </div>
             <div className="flex flex-wrap items-start gap-3 lg:col-span-4 lg:col-start-9 lg:justify-end">
               <Button href={`mailto:${site.email}`} arrow>
-                Scrivimi
+                {copy.contact.primary}
               </Button>
               <Button to="/experience" variant="secondary">
-                Vedi l’esperienza
+                {copy.contact.secondary}
               </Button>
             </div>
           </div>
