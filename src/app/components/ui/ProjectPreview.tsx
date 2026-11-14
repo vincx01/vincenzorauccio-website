@@ -1,6 +1,6 @@
 import { ArrowUpRight } from 'lucide-react'
-import { Link } from 'react-router'
 
+import { LocaleLink as Link } from '../../../i18n/core'
 import { cx } from '../../lib/cx'
 import { Media } from './Media'
 

@@ -15,20 +15,90 @@ Il sito rappresenta l’identità professionale di Vincenzo Rauccio e presenta l
 - Digital Transformation.
 - Financial Innovation.
 
-L’interfaccia e tutti i contenuti editoriali sono in italiano. Il sito non è un portfolio generico: raccoglie il percorso professionale, i progetti, i riconoscimenti e gli articoli pubblicati, con informazioni verificabili e senza risultati inventati.
+Il sito è completamente bilingue, italiano e inglese. Non è un portfolio generico: raccoglie il percorso professionale, i progetti, i riconoscimenti e gli articoli pubblicati, con informazioni verificabili e senza risultati inventati. La versione italiana resta la fonte editoriale approvata; la versione inglese è una localizzazione professionale, non una traduzione letterale.
 
 ## Sezioni del sito
 
-- **Home** (`/`): presentazione, ambiti di lavoro, esperienza e contatti.
-- **Chi sono** (`/about`): profilo professionale, competenze e metodo di lavoro.
-- **Esperienza** (`/experience`): ruoli, formazione, certificazioni, competenze e lingue.
-- **Progetti** (`/projects`): i progetti pubblicati, attualmente Synclin.
-- **Blog** (`/insights`): articoli su Blockchain, pagamenti digitali, Web3 e innovazione finanziaria.
-- **Contatti** (`/contact`): email pubblica e profili social verificati.
+Ogni pagina esiste in entrambe le lingue sotto `/it/` e `/en/`:
 
-Il sito include inoltre le pagine **Riconoscimenti** (`/recognition`), **Privacy** (`/privacy`) e **Cookie policy** (`/cookie-policy`). La guida interna di design è disponibile su `/design-system`.
+- **Home** (`/it/`, `/en/`): presentazione, ambiti di lavoro, esperienza e contatti.
+- **Chi sono / About** (`/it/about`, `/en/about`): profilo professionale, competenze e metodo di lavoro.
+- **Esperienza / Experience** (`/it/experience`, `/en/experience`): ruoli, formazione, certificazioni, competenze e lingue.
+- **Progetti / Projects** (`/it/projects`, `/en/projects`): i progetti pubblicati, attualmente Synclin.
+- **Blog** (`/it/insights`, `/en/insights`): articoli su Blockchain, pagamenti digitali, Web3 e innovazione finanziaria.
+- **Contatti / Contact** (`/it/contact`, `/en/contact`): email pubblica e profili social verificati.
 
-Gli articoli hanno URL alla radice, per esempio `/introducing-synclin`. Esistono alias italiani per le pagine principali (`/chi-sono`, `/esperienza`, `/progetti`, `/contatti`) e redirect dai vecchi percorsi WordPress.
+Il sito include inoltre **Riconoscimenti / Recognition**, **Privacy** e **Cookie policy** in entrambe le lingue. La guida interna di design è disponibile su `/it/design-system` e `/en/design-system`.
+
+Gli articoli hanno lo stesso slug nelle due lingue, con il prefisso della lingua: `/it/introducing-synclin` e `/en/introducing-synclin`. I vecchi URL italiani senza prefisso vengono reindirizzati con `301` alla versione `/it/`; gli alias italiani (`/chi-sono`, `/esperienza`, `/progetti`, `/contatti`) e i percorsi WordPress continuano a funzionare tramite redirect.
+
+## Lingue e localizzazione
+
+### Lingue supportate
+
+- **Italiano (`it`)** — lingua di origine e default quando la rilevazione non produce un risultato.
+- **Inglese (`en`)** — localizzazione professionale per il pubblico internazionale.
+
+### Rilevamento iniziale
+
+Alla prima visita della radice `/`, l’ordine di scelta è:
+
+1. lingua scelta manualmente e già salvata;
+2. paese del visitatore, letto dall’endpoint same-origin `/api/geo` (Cloudflare o Vercel);
+3. lingua preferita del browser;
+4. italiano.
+
+Se il paese è l’Italia viene mostrato `/it/`; per ogni altro paese viene mostrato `/en/`. Il rilevamento non richiede il GPS, non chiede permessi di localizzazione e non viene ripetuto a ogni navigazione interna. L’endpoint restituisce solo il codice paese e non conserva l’indirizzo IP.
+
+### Scelta manuale e persistenza
+
+Il selettore `IT | EN` è presente nell’header desktop e nel menu mobile. Ogni opzione è un link accessibile da tastiera che conserva pagina, query string e hash correnti. La scelta manuale:
+
+- ha priorità sul rilevamento geografico;
+- viene salvata nel cookie tecnico `vr-locale` per dodici mesi, con fallback in `localStorage`;
+- resta valida nelle visite successive;
+- non viene sovrascritta automaticamente.
+
+### Struttura degli URL
+
+```text
+/                     rilevamento lingua e redirect a /it/ o /en/
+/it/                  home italiana
+/it/about             profilo italiano
+/it/experience        esperienza italiana
+/it/projects          progetti italiani
+/it/insights          blog italiano
+/it/contact           contatti italiani
+/it/<slug>            articolo italiano
+/en/...               corrispondente pagina inglese
+```
+
+Canonical e `hreflang` vengono generati per ogni pagina: `it-IT`, `en` e `x-default` (versione inglese). Le versioni italiana e inglese non condividono mai lo stesso canonical. I vecchi URL italiani senza prefisso rispondono con redirect permanente a `/it/...`.
+
+### Architettura delle traduzioni
+
+- `src/i18n/core.tsx` — tipo `Locale`, rilevamento, cookie, contesto React, link e navigazione localizzati.
+- `src/i18n/content.ts` — sito, navigazione, competenze, carriera, progetti e riconoscimenti nelle due lingue.
+- `src/i18n/pages.ts` — testi delle pagine, messaggi di errore e contenuti legali.
+- `src/i18n/ui.ts` — etichette di interfaccia, header, footer, consenso cookie e messaggi di condivisione.
+- `src/i18n/articles-en.ts` — localizzazione completa dei cinque articoli pubblicati.
+- `src/i18n/foundation.ts` — contenuti della guida interna di design.
+- `src/data/articles/index.ts` — getter localizzati per articoli, categorie, date e correlati.
+
+Le pagine e i componenti sono condivisi: il contesto di lingua fornisce i testi e i dati localizzati, senza duplicare il layout. Le date usano `Intl.DateTimeFormat` con `it-IT` o `en-GB`.
+
+### Aggiungere una nuova lingua o un nuovo contenuto
+
+Per una nuova lingua:
+
+1. aggiungere il codice a `locales` in `src/i18n/core.tsx`;
+2. aggiungere la lingua ai dizionari di `content.ts`, `ui.ts`, `pages.ts` e `foundation.ts`;
+3. aggiungere le traduzioni degli articoli in `articles-en.ts` (o in un nuovo file dedicato);
+4. aggiungere le route con prefisso e gli eventuali redirect legacy;
+5. aggiornare `hreflang` in `src/app/lib/meta.ts`;
+6. aggiornare README e verificare build, routing, SEO e layout mobile.
+
+Per un nuovo articolo, creare il file italiano in `src/data/articles/`, registrarlo in `sources` e aggiungere la voce inglese corrispondente in `src/i18n/articles-en.ts`. Se manca la traduzione, la pagina inglese non deve essere pubblicata come collegamento vuoto.
 
 ## Stack tecnologico
 
@@ -54,22 +124,31 @@ Le dipendenze e le versioni effettive sono definite in `package.json` e `bun.loc
 ├── public/
 │   ├── brand/                 # Marchio VR e asset di brand
 │   └── images/                # Fotografie e immagini editoriali
+├── api/
+│   └── geo.ts                 # Country hint per Vercel Edge
 ├── scripts/
 │   └── postbuild.mjs          # Controlli successivi alla build
 ├── src/
 │   ├── app/
 │   │   ├── components/        # Componenti condivisi: layout, UI, editoriale, navigazione
-│   │   ├── lib/               # Metadati, motion, utility e link del sito
-│   │   ├── pages/             # Home, Chi sono, Esperienza, Progetti, Blog, articoli e pagine legali
-│   │   └── App.tsx            # Routing e struttura dell’applicazione
+│   │   ├── lib/               # Metadati, hreflang, motion, utility e link del sito
+│   │   ├── pages/             # Pagine condivise nelle due lingue
+│   │   └── App.tsx            # Routing /it, /en, rilevamento e redirect legacy
 │   ├── data/
-│   │   ├── articles/          # Contenuti degli articoli e relative immagini
-│   │   ├── career.ts          # Esperienze, formazione, certificazioni e competenze
-│   │   ├── projects.ts        # Progetti pubblicati
-│   │   ├── recognition.ts     # Riconoscimenti documentati
-│   │   └── site.ts            # Identità, navigazione e dati di base
+│   │   ├── articles/          # Contenuti italiani e getter localizzati
+│   │   ├── career.ts          # Dati italiani di carriera
+│   │   ├── projects.ts        # Dati italiani dei progetti
+│   │   ├── recognition.ts     # Dati italiani dei riconoscimenti
+│   │   └── site.ts            # Identità e dati di base
+│   ├── i18n/
+│   │   ├── core.tsx           # Locale, rilevamento, persistenza e link localizzati
+│   │   ├── content.ts         # Contenuti strutturati IT/EN
+│   │   ├── pages.ts           # Testi di pagina e contenuti legali IT/EN
+│   │   ├── ui.ts              # Etichette di interfaccia e consenso IT/EN
+│   │   ├── articles-en.ts     # Traduzioni professionali degli articoli
+│   │   └── foundation.ts      # Guida di design IT/EN
 │   ├── worker/
-│   │   └── index.ts           # Worker Hono e gestione degli asset
+│   │   └── index.ts           # Worker Hono, /api/geo, redirect e asset
 │   ├── main.tsx               # Punto di ingresso React
 │   └── styles.css             # Token, tipografia, componenti e movimento
 ├── index.html
@@ -172,7 +251,7 @@ Prima di ogni aggiornamento pubblicato è necessario eseguire `bun run typecheck
 
 Questo repository è privato e contiene il codice sorgente e gli asset di sviluppo del sito personale di Vincenzo Rauccio. Non è destinato alla distribuzione pubblica né all’uso come progetto open source.
 
-Il sito non raccoglie dati tramite moduli e non usa strumenti di analytics o marketing. L’unica memoria locale è quella necessaria a ricordare la scelta espressa nel banner cookie. I dettagli sono nelle pagine Privacy e Cookie policy.
+Il sito non raccoglie dati tramite moduli e non usa strumenti di analytics o marketing. Usa la memoria locale per ricordare la scelta espressa nel banner cookie e un cookie tecnico `vr-locale` per la lingua preferita. I dettagli sono nelle pagine Privacy e Cookie policy, disponibili in italiano e inglese.
 
 ## Copyright
 

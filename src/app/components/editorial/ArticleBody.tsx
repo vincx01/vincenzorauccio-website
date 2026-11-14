@@ -1,4 +1,6 @@
 import type { ArticleBlock } from '../../../data/articles'
+import { useLocale } from '../../../i18n/core'
+import { localizedUi } from '../../../i18n/ui'
 
 function List({ block }: { block: Extract<ArticleBlock, { type: 'list' }> }) {
   const Tag = block.ordered ? 'ol' : 'ul'
@@ -20,6 +22,9 @@ function List({ block }: { block: Extract<ArticleBlock, { type: 'list' }> }) {
 }
 
 function BodyBlock({ block }: { block: ArticleBlock }) {
+  const { locale } = useLocale()
+  const linksLabel = localizedUi(locale).links.default
+
   switch (block.type) {
     case 'paragraph':
       return <p>{block.text}</p>
@@ -37,7 +42,7 @@ function BodyBlock({ block }: { block: ArticleBlock }) {
     case 'links':
       return (
         <aside className="prose-links">
-          <p className="eyebrow text-ink-faint">{block.title ?? 'Link'}</p>
+          <p className="eyebrow text-ink-faint">{block.title ?? linksLabel}</p>
           <ul>
             {block.items.map((item) => (
               <li key={item.href}>

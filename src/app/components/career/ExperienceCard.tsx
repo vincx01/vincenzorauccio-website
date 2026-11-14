@@ -1,10 +1,15 @@
 import type { ProfessionalRole } from '../../../data/career'
+import { useLocale } from '../../../i18n/core'
+import { localizedUi } from '../../../i18n/ui'
 
 /**
  * Una voce di esperienza: periodo e sede a sinistra, ruolo, responsabilità e
  * progetti a destra. La struttura resta editoriale, senza card decorative.
  */
 export function ExperienceCard({ role }: { role: ProfessionalRole }) {
+  const { locale } = useLocale()
+  const copy = localizedUi(locale).common
+
   return (
     <article id={role.id} className="border-t border-line py-8 md:py-10">
       <div className="grid gap-6 md:grid-cols-12 md:gap-[var(--grid-gap)]">
@@ -37,7 +42,7 @@ export function ExperienceCard({ role }: { role: ProfessionalRole }) {
 
           {role.projects && role.projects.length > 0 && (
             <div className="mt-8 border-t border-line pt-5">
-              <p className="eyebrow text-ink-faint">Progetti selezionati</p>
+              <p className="eyebrow text-ink-faint">{copy.selectedProjects}</p>
               <div className="mt-4 grid gap-5 sm:grid-cols-2">
                 {role.projects.map((project) => (
                   <div key={project.name} className="border-l border-line pl-4">

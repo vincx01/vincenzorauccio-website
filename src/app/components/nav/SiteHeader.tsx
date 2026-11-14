@@ -1,20 +1,21 @@
 import { Menu, X } from 'lucide-react'
 import { motion, useReducedMotion } from 'motion/react'
 import { useEffect, useRef, useState } from 'react'
-import { Link, NavLink, useLocation } from 'react-router'
+import { useLocation } from 'react-router'
 
-import { primaryNav, site } from '../../../data/site'
+import { localizedNav, localizedSite } from '../../../i18n/content'
+import { LocaleLink as Link, LocaleNavLink as NavLink, useLocale } from '../../../i18n/core'
+import { localizedUi } from '../../../i18n/ui'
 import { cx } from '../../lib/cx'
 import { EASE_OUT } from '../../lib/motion'
 import { Logo } from '../brand/Logo'
 import { Container } from '../layout/Container'
 import { Button } from '../ui/Button'
+import { LocaleSwitcher } from './LocaleSwitcher'
 
 /**
- * Header sticky: logo ufficiale, navigazione con stato attivo, azione di
- * contatto e pannello mobile a tutta altezza. Il pannello vive fuori
- * dall'header: il backdrop-filter dell'header crea un containing block per
- * gli elementi fixed e, dopo lo scroll, faceva collassare il menu.
+ * Header sticky: logo ufficiale, navigazione con stato attivo, selettore
+ * lingua, azione di contatto e pannello mobile a tutta altezza.
  *
  * Il pannello si chiude con Escape, con il pulsante, al cambio pagina e
  * quando il viewport passa al layout desktop. Il focus resta confinato nel
@@ -28,6 +29,10 @@ export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false)
   const reduce = useReducedMotion()
   const { pathname } = useLocation()
+  const { locale } = useLocale()
+  const site = localizedSite(locale)
+  const { primary } = localizedNav(locale)
+  const copy = localizedUi(locale).header
 
   useEffect(() => {
     setOpen(false)
@@ -118,7 +123,7 @@ export function SiteHeader() {
           <div className="flex h-[var(--header-height)] items-center justify-between gap-4 lg:grid lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] lg:gap-4 xl:gap-6">
             <Link
               to="/"
-              aria-label="Vincenzo Rauccio, torna alla home"
+              aria-label={copy.homeAria}
               onClick={() => setOpen(false)}
               className="min-w-0 lg:col-start-1 lg:justify-self-start"
             >
@@ -126,10 +131,10 @@ export function SiteHeader() {
             </Link>
 
             <nav
-              aria-label="Navigazione principale"
+              aria-label={copy.navAria}
               className="hidden items-center gap-4 lg:flex lg:justify-self-center xl:gap-6"
             >
-              {primaryNav.map((item) => (
+              {primary.map((item) => (
                 <NavLink
                   key={item.to}
                   to={item.to}
@@ -141,10 +146,11 @@ export function SiteHeader() {
               ))}
             </nav>
 
-            <div className="flex items-center lg:col-start-3 lg:justify-self-end">
+            <div className="flex items-center gap-3 lg:col-start-3 lg:justify-self-end">
+              <LocaleSwitcher className="hidden lg:flex" />
               <div className="hidden lg:flex">
                 <Button href={`mailto:${site.email}`} size="sm" arrow>
-                  Scrivimi
+                  {copy.cta}
                 </Button>
               </div>
 
@@ -153,7 +159,7 @@ export function SiteHeader() {
                 type="button"
                 aria-expanded={open}
                 aria-controls="mobile-navigation"
-                aria-label={open ? 'Chiudi il menu' : 'Apri il menu'}
+                aria-label={open ? copy.closeMenu : copy.openMenu}
                 onClick={() => setOpen((value) => !value)}
                 className="grid size-10 place-items-center border border-line-strong text-ink transition-colors duration-300 hover:border-ink lg:hidden"
               >
@@ -173,15 +179,15 @@ export function SiteHeader() {
           ref={panelRef}
           id="mobile-navigation"
           role="dialog"
-          aria-label="Menu di navigazione"
+          aria-label={copy.menuDialog}
           initial={reduce ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.28, ease: EASE_OUT }}
           className="fixed inset-x-0 top-[var(--header-height)] bottom-0 z-[45] overflow-y-auto border-t border-line bg-canvas lg:hidden"
         >
           <Container className="flex min-h-full flex-col justify-between gap-10 py-8">
-            <nav aria-label="Navigazione mobile" className="flex flex-col">
-              {primaryNav.map((item, index) => (
+            <nav aria-label={copy.mobileNavAria} className="flex flex-col">
+              {primary.map((item, index) => (
                 <NavLink
                   key={item.to}
                   to={item.to}
@@ -202,8 +208,9 @@ export function SiteHeader() {
               ))}
             </nav>
             <div className="flex flex-col gap-4">
+              <LocaleSwitcher className="self-start" />
               <Button href={`mailto:${site.email}`} arrow className="w-full">
-                Scrivimi
+                {copy.cta}
               </Button>
               <p className="text-caption text-ink-faint">{site.email}</p>
             </div>

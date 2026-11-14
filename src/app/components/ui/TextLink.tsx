@@ -1,7 +1,7 @@
 import { ArrowUpRight } from 'lucide-react'
 import type { ReactNode } from 'react'
-import { Link } from 'react-router'
 
+import { LocaleLink as Link } from '../../../i18n/core'
 import { cx } from '../../lib/cx'
 
 /** Inline navigation with a hairline underline and a sliding arrow. */

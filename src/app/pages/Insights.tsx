@@ -1,13 +1,16 @@
 import { motion, useReducedMotion } from 'motion/react'
-import { Link, useSearchParams } from 'react-router'
+import { useSearchParams } from 'react-router'
 
 import {
-  articleCategories,
-  articles,
-  articlesInCategory,
-  featuredArticle,
+  getArticleCategories,
+  getArticles,
+  getArticlesInCategory,
+  getFeaturedArticle,
 } from '../../data/articles'
-import { site } from '../../data/site'
+import { localizedSite } from '../../i18n/content'
+import { LocaleLink as Link, useLocale } from '../../i18n/core'
+import { localizedPages } from '../../i18n/pages'
+import { localizedUi } from '../../i18n/ui'
 import { ArticleRow } from '../components/editorial/ArticleRow'
 import { AuthorCard } from '../components/editorial/AuthorCard'
 import { Container } from '../components/layout/Container'
@@ -20,34 +23,41 @@ import { usePageMeta } from '../lib/meta'
 /** Indice editoriale: articolo in evidenza, archivio e filtro per categoria. */
 export function Insights() {
   const reduce = useReducedMotion()
+  const { locale } = useLocale()
+  const site = localizedSite(locale)
+  const copy = localizedPages(locale).insights
+  const common = localizedUi(locale).common
   const [params] = useSearchParams()
   const requested = (params.get('category') ?? '').toLowerCase()
+
+  const articles = getArticles(locale)
+  const articleCategories = getArticleCategories(locale)
+  const featuredArticle = getFeaturedArticle(locale)
   const active = articleCategories.find((category) => category.slug === requested)
 
   const latest = requested
     ? active
-      ? articlesInCategory(active.slug)
+      ? getArticlesInCategory(locale, active.slug)
       : []
     : articles.filter((article) => article.slug !== featuredArticle?.slug)
 
   usePageMeta({
-    title: 'Blog — Blockchain, pagamenti e innovazione | Vincenzo Rauccio',
-    description:
-      'Articoli di Vincenzo Rauccio su Blockchain, pagamenti digitali, Web3 e innovazione finanziaria.',
+    title: copy.meta.title,
+    description: copy.meta.description,
     path: '/insights',
+    locale,
     jsonLd: {
       '@context': 'https://schema.org',
       '@type': 'Blog',
-      name: 'Blog — Vincenzo Rauccio',
-      url: `${site.url}/insights`,
-      inLanguage: 'it',
-      description:
-        'Articoli su Blockchain, pagamenti digitali, Web3 e innovazione finanziaria.',
-      author: { '@type': 'Person', name: site.name, url: site.url },
+      name: copy.schemaName,
+      url: `${site.url}/${locale}/insights`,
+      inLanguage: locale,
+      description: copy.schemaDescription,
+      author: { '@type': 'Person', name: site.name, url: `${site.url}/${locale}/` },
       blogPost: articles.map((article) => ({
         '@type': 'BlogPosting',
         headline: article.title,
-        url: `${site.url}/${article.slug}`,
+        url: `${site.url}/${locale}/${article.slug}`,
         datePublished: article.publishedAt,
       })),
     },
@@ -59,29 +69,24 @@ export function Insights() {
         <Container width="wide" className="pt-[clamp(3rem,6vw,5rem)]">
           <div className="flex items-center gap-4 border-t border-line pt-4">
             <span className="eyebrow text-ink-faint">05</span>
-            <span className="eyebrow text-ink-muted">Blog</span>
+            <span className="eyebrow text-ink-muted">{copy.eyebrow}</span>
           </div>
 
           <div className="mt-7 grid gap-8 lg:grid-cols-12 lg:gap-[var(--grid-gap)]">
             <div className="lg:col-span-8">
-              <h1 className="max-w-[18ch] font-display text-headline">
-                Blockchain, pagamenti e innovazione: appunti di lavoro.
-              </h1>
+              <h1 className="max-w-[18ch] font-display text-headline">{copy.title}</h1>
             </div>
             <div className="lg:col-span-4 lg:pt-2">
-              <p className="text-body text-ink-muted">
-                Articoli e riflessioni su governance Blockchain, pagamenti, Web3 e innovazione
-                finanziaria.
-              </p>
+              <p className="text-body text-ink-muted">{copy.lead}</p>
               <p className="mt-4 text-caption text-ink-faint">
-                {articles.length} articoli
-                {articles[0] ? ` · Ultimo: ${articles[0].displayDate}` : ''}
+                {articles.length} {copy.plural}
+                {articles[0] ? ` · ${copy.last}: ${articles[0].displayDate}` : ''}
               </p>
             </div>
           </div>
 
           <nav
-            aria-label="Filtra gli articoli per categoria"
+            aria-label={copy.filterAria}
             className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-line pt-4"
           >
             <Link
@@ -89,7 +94,7 @@ export function Insights() {
               aria-current={!requested ? 'page' : undefined}
               className="link-quiet text-small"
             >
-              Tutti <span className="text-caption text-ink-faint">{articles.length}</span>
+              {copy.all} <span className="text-caption text-ink-faint">{articles.length}</span>
             </Link>
             {articleCategories.map((category) => (
               <Link
@@ -109,7 +114,7 @@ export function Insights() {
         <Section spacing="none" className="pt-12">
           <Container width="wide">
             <div className="flex items-center gap-4 border-t border-line pt-4">
-              <span className="eyebrow text-ink-muted">Articolo in evidenza</span>
+              <span className="eyebrow text-ink-muted">{copy.featured}</span>
             </div>
 
             <article className="mt-6 grid gap-8 lg:grid-cols-12 lg:items-center lg:gap-[var(--grid-gap)]">
@@ -133,7 +138,7 @@ export function Insights() {
                     ·
                   </span>
                   <span className="eyebrow text-ink-faint">
-                    {featuredArticle.readingMinutes} min di lettura
+                    {featuredArticle.readingMinutes} {copy.readingTime}
                   </span>
                   <span aria-hidden="true" className="text-caption text-ink-faint">
                     ·
@@ -153,7 +158,9 @@ export function Insights() {
                 <p className="mt-4 text-lead text-ink-muted">{featuredArticle.excerpt}</p>
 
                 <div className="mt-6">
-                  <TextLink to={`/${featuredArticle.slug}`}>Leggi l’articolo</TextLink>
+                  <TextLink to={`/${featuredArticle.slug}`}>
+                    {common.readArticle}
+                  </TextLink>
                 </div>
               </div>
             </article>
@@ -167,10 +174,10 @@ export function Insights() {
             <div className="lg:col-span-8">
               <div className="flex items-baseline justify-between gap-4 border-t border-line pt-4">
                 <h2 className="eyebrow text-ink-muted">
-                  {active ? `Articoli in ${active.name}` : 'Ultime pubblicazioni'}
+                  {active ? `${copy.inCategory} ${active.name}` : copy.latest}
                 </h2>
                 <span className="text-caption text-ink-faint">
-                  {latest.length} {latest.length === 1 ? 'articolo' : 'articoli'}
+                  {latest.length} {latest.length === 1 ? copy.singular : copy.plural}
                 </span>
               </div>
 
@@ -190,9 +197,9 @@ export function Insights() {
                   </ul>
                 ) : (
                   <p className="mt-6 text-body text-ink-muted">
-                    Non ci sono ancora articoli in questa categoria.{' '}
+                    {copy.noArticles}{' '}
                     <Link to="/insights" className="underline underline-offset-4">
-                      Vedi tutti gli articoli
+                      {copy.viewAll}
                     </Link>
                     .
                   </p>
@@ -202,7 +209,7 @@ export function Insights() {
 
             <aside className="lg:col-span-3 lg:col-start-10">
               <div className="border-t border-line pt-4">
-                <h2 className="eyebrow text-ink-muted">Categorie</h2>
+                <h2 className="eyebrow text-ink-muted">{copy.categories}</h2>
                 <ul className="mt-4 flex flex-col gap-2">
                   {articleCategories.map((category) => (
                     <li key={category.slug}>

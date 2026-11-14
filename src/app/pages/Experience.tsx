@@ -1,6 +1,6 @@
-import { certifications, education, languages, professionalExperience, skillGroups } from '../../data/career'
-import { recognition } from '../../data/recognition'
-import { site } from '../../data/site'
+import { localizedCareer, localizedRecognition, localizedSite } from '../../i18n/content'
+import { useLocale } from '../../i18n/core'
+import { localizedPages } from '../../i18n/pages'
 import { ExperienceCard } from '../components/career/ExperienceCard'
 import { Container } from '../components/layout/Container'
 import { Section } from '../components/layout/Section'
@@ -11,27 +11,25 @@ import { TextLink } from '../components/ui/TextLink'
 import { Timeline } from '../components/ui/Timeline'
 import { usePageMeta } from '../lib/meta'
 
-const educationEntries = education.map((entry) => ({
-  period: entry.period,
-  title: entry.title,
-  organisation: entry.organisation,
-  meta: entry.status,
-}))
-
-const pageSections = [
-  { id: 'esperienza', label: 'Esperienza' },
-  { id: 'formazione', label: 'Formazione' },
-  { id: 'certificazioni', label: 'Certificazioni' },
-  { id: 'competenze', label: 'Competenze' },
-  { id: 'lingue', label: 'Lingue' },
-]
-
 export function ExperiencePage() {
+  const { locale } = useLocale()
+  const site = localizedSite(locale)
+  const career = localizedCareer(locale)
+  const recognition = localizedRecognition(locale)
+  const copy = localizedPages(locale).experience
+
+  const educationEntries = career.education.map((entry) => ({
+    period: entry.period,
+    title: entry.title,
+    organisation: entry.organisation,
+    meta: entry.status,
+  }))
+
   usePageMeta({
-    title: 'Esperienza — Vincenzo Rauccio',
-    description:
-      'Il percorso professionale di Vincenzo Rauccio: consulenza in PwC Italy, Blockchain Innovation Lead all’Ordine degli Ingegneri di Caserta, formazione e certificazioni.',
+    title: copy.meta.title,
+    description: copy.meta.description,
     path: '/experience',
+    locale,
   })
 
   return (
@@ -40,29 +38,23 @@ export function ExperiencePage() {
         <Container width="wide" className="pt-[clamp(3rem,6vw,5rem)]">
           <div className="flex items-center gap-4 border-t border-line pt-4">
             <span className="eyebrow text-ink-faint">02</span>
-            <span className="eyebrow text-ink-muted">Esperienza</span>
+            <span className="eyebrow text-ink-muted">{copy.eyebrow}</span>
           </div>
 
           <div className="mt-8 grid gap-8 lg:grid-cols-12 lg:gap-[var(--grid-gap)]">
             <div className="lg:col-span-8">
-              <h1 className="max-w-[18ch] font-display text-headline">
-                Consulenza, coordinamento e formazione.
-              </h1>
+              <h1 className="max-w-[18ch] font-display text-headline">{copy.title}</h1>
             </div>
             <div className="lg:col-span-4 lg:pt-2">
-              <p className="text-body text-ink-muted">
-                Un percorso tra iniziative di trasformazione digitale, coordinamento tecnico e
-                formazione continua. Le esperienze e le certificazioni qui sotto sono quelle del
-                CV.
-              </p>
+              <p className="text-body text-ink-muted">{copy.lead}</p>
             </div>
           </div>
 
           <nav
-            aria-label="Sezioni della pagina Esperienza"
+            aria-label={copy.navAria}
             className="mt-10 flex flex-wrap gap-x-6 gap-y-3 border-t border-line pt-4"
           >
-            {pageSections.map((section) => (
+            {copy.nav.map((section) => (
               <a key={section.id} href={`#${section.id}`} className="link-quiet text-small">
                 {section.label}
               </a>
@@ -74,12 +66,12 @@ export function ExperiencePage() {
       <Section id="esperienza" spacing="none" className="pt-16">
         <Container>
           <div className="flex flex-wrap items-baseline justify-between gap-3 border-t border-line pt-4">
-            <h2 className="eyebrow text-ink-muted">Esperienza professionale</h2>
-            <span className="text-caption text-ink-faint">Aggiornato a novembre 2026</span>
+            <h2 className="eyebrow text-ink-muted">{copy.professional}</h2>
+            <span className="text-caption text-ink-faint">{copy.updated}</span>
           </div>
 
           <div className="mt-2 border-b border-line">
-            {professionalExperience.map((role) => (
+            {career.professionalExperience.map((role) => (
               <ExperienceCard key={role.id} role={role} />
             ))}
           </div>
@@ -89,10 +81,10 @@ export function ExperiencePage() {
       <Section id="formazione" tone="quiet">
         <Container>
           <SectionHeading
-            index="03"
-            eyebrow="Formazione"
-            title="Formazione accademica."
-            description="Due percorsi in ingegneria, tra automazione, cybersecurity e informatica."
+            index={copy.education.index}
+            eyebrow={copy.education.eyebrow}
+            title={copy.education.title}
+            description={copy.education.description}
           />
           <Timeline items={educationEntries} className="mt-10" />
         </Container>
@@ -101,13 +93,13 @@ export function ExperiencePage() {
       <Section id="certificazioni">
         <Container>
           <SectionHeading
-            index="04"
-            eyebrow="Certificazioni"
-            title="Formazione professionale."
-            description="Le certificazioni e i percorsi completati, con la denominazione originale."
+            index={copy.certifications.index}
+            eyebrow={copy.certifications.eyebrow}
+            title={copy.certifications.title}
+            description={copy.certifications.description}
           />
           <ol className="mt-10 grid gap-x-10 border-t border-line sm:grid-cols-2">
-            {certifications.map((certification, index) => (
+            {career.certifications.map((certification, index) => (
               <li
                 key={certification.name}
                 className="flex items-baseline gap-4 border-b border-line py-4"
@@ -131,12 +123,12 @@ export function ExperiencePage() {
       <Section id="competenze" tone="quiet">
         <Container>
           <SectionHeading
-            index="05"
-            eyebrow="Competenze"
-            title="Competenze tecniche e professionali."
-            description="Linguaggi, aree tecniche e competenze trasversali maturate nel percorso professionale."
+            index={copy.skills.index}
+            eyebrow={copy.skills.eyebrow}
+            title={copy.skills.title}
+            description={copy.skills.description}
           />
-          <CapabilityList items={skillGroups} className="mt-10" />
+          <CapabilityList items={career.skillGroups} className="mt-10" />
         </Container>
       </Section>
 
@@ -145,14 +137,14 @@ export function ExperiencePage() {
           <div className="grid gap-8 lg:grid-cols-12 lg:gap-[var(--grid-gap)]">
             <div className="lg:col-span-4">
               <div className="flex items-center gap-4 border-t border-line pt-4">
-                <span className="eyebrow text-ink-faint">06</span>
-                <span className="eyebrow text-ink-muted">Lingue</span>
+                <span className="eyebrow text-ink-faint">{copy.languages.index}</span>
+                <span className="eyebrow text-ink-muted">{copy.languages.eyebrow}</span>
               </div>
-              <h2 className="mt-6 font-display text-title">Italiano e inglese.</h2>
+              <h2 className="mt-6 font-display text-title">{copy.languages.title}</h2>
             </div>
 
             <dl className="border-t border-line lg:col-span-7 lg:col-start-6">
-              {languages.map((entry) => (
+              {career.languages.map((entry) => (
                 <div
                   key={entry.language}
                   className="flex flex-wrap items-baseline justify-between gap-2 border-b border-line py-4"
@@ -171,9 +163,9 @@ export function ExperiencePage() {
           <Container>
             <div className="grid gap-6 border-t border-line pt-5 lg:grid-cols-12 lg:gap-[var(--grid-gap)]">
               <div className="lg:col-span-4">
-                <p className="eyebrow text-ink-faint">Riconoscimenti</p>
+                <p className="eyebrow text-ink-faint">{copy.recognition.eyebrow}</p>
                 <h2 className="mt-4 max-w-[16ch] font-display text-title">
-                  Riconoscimenti professionali.
+                  {copy.recognition.title}
                 </h2>
               </div>
               <div className="divide-y divide-line lg:col-span-7 lg:col-start-6">
@@ -186,7 +178,7 @@ export function ExperiencePage() {
                     )}
                     {entry.recipient && (
                       <p className="mt-2 text-small text-ink">
-                        <span className="text-ink-faint">Assegnato a </span>
+                        <span className="text-ink-faint">{copy.recognition.assignedTo}</span>
                         {entry.recipient}
                         {entry.recipientRole ? ` · ${entry.recipientRole}` : ''}
                       </p>
@@ -206,7 +198,7 @@ export function ExperiencePage() {
                           {entry.links[0].label}
                         </a>
                       )}
-                      <TextLink to="/recognition">Vedi il riconoscimento</TextLink>
+                      <TextLink to="/recognition">{copy.recognition.link}</TextLink>
                     </div>
                   </div>
                 ))}
@@ -220,20 +212,16 @@ export function ExperiencePage() {
         <Container>
           <div className="grid gap-10 lg:grid-cols-12 lg:gap-[var(--grid-gap)]">
             <div className="lg:col-span-7">
-              <p className="eyebrow text-ink-faint">Contatti</p>
-              <h2 className="mt-4 max-w-[17ch] font-display text-title">
-                Parliamo del prossimo passo.
-              </h2>
-              <p className="text-measure mt-5 text-lead text-ink-muted">
-                Per un confronto su un ruolo, una collaborazione o un progetto di consulenza.
-              </p>
+              <p className="eyebrow text-ink-faint">{copy.contact.eyebrow}</p>
+              <h2 className="mt-4 max-w-[17ch] font-display text-title">{copy.contact.title}</h2>
+              <p className="text-measure mt-5 text-lead text-ink-muted">{copy.contact.lead}</p>
             </div>
             <div className="flex flex-wrap items-start gap-3 lg:col-span-4 lg:col-start-9 lg:justify-end">
               <Button href={`mailto:${site.email}`} arrow>
-                Scrivimi
+                {copy.contact.primary}
               </Button>
               <Button to="/projects" variant="secondary">
-                Vedi i progetti
+                {copy.contact.secondary}
               </Button>
             </div>
           </div>

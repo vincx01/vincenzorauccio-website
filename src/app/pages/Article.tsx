@@ -1,9 +1,15 @@
 import { ArrowLeft } from 'lucide-react'
-import { Link, Navigate, useParams } from 'react-router'
+import { useParams } from 'react-router'
 
-import { articleBySlug, relatedArticles, type Article } from '../../data/articles'
+import {
+  getArticleBySlug,
+  getRelatedArticles,
+  type Article,
+} from '../../data/articles'
 import { categorySlug } from '../../data/articles/utils'
-import { site } from '../../data/site'
+import { localizedSite } from '../../i18n/content'
+import { LocaleLink as Link, useLocale } from '../../i18n/core'
+import { localizedPages } from '../../i18n/pages'
 import { ArticleBody } from '../components/editorial/ArticleBody'
 import { ArticleRow } from '../components/editorial/ArticleRow'
 import { AuthorCard } from '../components/editorial/AuthorCard'
@@ -14,17 +20,22 @@ import { Section } from '../components/layout/Section'
 import { Media } from '../components/ui/Media'
 import { TextLink } from '../components/ui/TextLink'
 import { usePageMeta } from '../lib/meta'
+import { NotFound } from './NotFound'
 
 function ArticleView({ article }: { article: Article }) {
-  const related = relatedArticles(article)
-  const shareUrl = `${site.url}/${article.slug}`
-  const canonicalUrl = `${site.url}${article.canonicalPath}`
+  const { locale } = useLocale()
+  const site = localizedSite(locale)
+  const copy = localizedPages(locale).article
+  const related = getRelatedArticles(locale, article)
+  const shareUrl = `${site.url}/${locale}${article.canonicalPath}`
+  const canonicalUrl = `${site.url}/${locale}${article.canonicalPath}`
 
   usePageMeta({
     title: `${article.title} — Vincenzo Rauccio`,
     description: article.excerpt,
     path: `/${article.slug}`,
     canonical: article.canonicalPath,
+    locale,
     type: 'article',
     image: article.image ? `${site.url}${article.image.src}` : undefined,
     publishedAt: article.publishedAt,
@@ -35,8 +46,8 @@ function ArticleView({ article }: { article: Article }) {
       description: article.excerpt,
       datePublished: article.publishedAt,
       dateModified: article.publishedAt,
-      inLanguage: 'it',
-      author: { '@type': 'Person', name: site.name, url: site.url },
+      inLanguage: locale,
+      author: { '@type': 'Person', name: site.name, url: `${site.url}/${locale}/` },
       image: article.image ? [`${site.url}${article.image.src}`] : undefined,
       url: shareUrl,
       mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalUrl },
@@ -54,7 +65,7 @@ function ArticleView({ article }: { article: Article }) {
           <div className="flex flex-wrap items-center justify-between gap-4 border-t border-line pt-4">
             <Link to="/insights" className="link-quiet inline-flex items-center gap-2 text-small">
               <ArrowLeft aria-hidden="true" className="size-4" />
-              Tutti gli articoli
+              {copy.all}
             </Link>
             <p className="eyebrow text-ink-faint">
               {article.categories.map((category, index) => (
@@ -75,7 +86,9 @@ function ArticleView({ article }: { article: Article }) {
             <span aria-hidden="true">·</span>
             <time dateTime={article.publishedAt}>{article.displayDate}</time>
             <span aria-hidden="true">·</span>
-            <span>{article.readingMinutes} min di lettura</span>
+            <span>
+              {article.readingMinutes} {copy.readingTime}
+            </span>
           </div>
         </Container>
 
@@ -119,7 +132,7 @@ function ArticleView({ article }: { article: Article }) {
           <AuthorCard className="mt-12" />
 
           <div className="mt-10">
-            <TextLink to="/insights">Torna al Blog</TextLink>
+            <TextLink to="/insights">{copy.back}</TextLink>
           </div>
         </Container>
       </Section>
@@ -128,9 +141,9 @@ function ArticleView({ article }: { article: Article }) {
         <Section tone="quiet">
           <Container width="wide">
             <div className="flex items-baseline justify-between gap-4 border-t border-line pt-4">
-              <h2 className="eyebrow text-ink-muted">Articoli correlati</h2>
+              <h2 className="eyebrow text-ink-muted">{copy.related}</h2>
               <Link to="/insights" className="link-quiet text-small">
-                Tutti gli articoli
+                {copy.all}
               </Link>
             </div>
             <ul className="mt-4">
@@ -149,9 +162,10 @@ function ArticleView({ article }: { article: Article }) {
 
 export function ArticlePage() {
   const { slug = '' } = useParams<{ slug: string }>()
-  const article = articleBySlug(slug)
+  const { locale } = useLocale()
+  const article = getArticleBySlug(locale, slug)
 
-  if (!article) return <Navigate to="/insights" replace />
+  if (!article) return <NotFound />
 
-  return <ArticleView key={article.slug} article={article} />
+  return <ArticleView key={`${locale}-${article.slug}`} article={article} />
 }

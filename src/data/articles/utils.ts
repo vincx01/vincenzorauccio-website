@@ -1,3 +1,4 @@
+import type { Locale } from '../../i18n/core'
 import type { ArticleBlock } from './types'
 
 const WORDS_PER_MINUTE = 200
@@ -28,9 +29,9 @@ export function readingMinutes(blocks: ArticleBlock[]): number {
   return Math.max(1, Math.round(words / WORDS_PER_MINUTE))
 }
 
-/** Data italiana deterministica, ad esempio "22 aprile 2026". */
-export function formatDate(isoDate: string): string {
-  return new Intl.DateTimeFormat('it-IT', {
+/** Data deterministica e localizzata, ad esempio "22 aprile 2026" o "22 April 2026". */
+export function formatDate(isoDate: string, locale: Locale = 'it'): string {
+  return new Intl.DateTimeFormat(locale === 'it' ? 'it-IT' : 'en-GB', {
     day: 'numeric',
     month: 'long',
     year: 'numeric',

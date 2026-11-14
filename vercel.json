@@ -4,10 +4,50 @@
   "buildCommand": "bun run build:vercel",
   "outputDirectory": "dist/vercel",
   "redirects": [
-    { "source": "/blog", "destination": "/insights", "permanent": true },
-    { "source": "/blog/:path*", "destination": "/insights", "permanent": true },
-    { "source": "/category/:slug", "destination": "/insights?category=:slug", "permanent": true },
-    { "source": "/tag/:path*", "destination": "/insights", "permanent": true }
+    { "source": "/blog", "destination": "/it/insights", "statusCode": 301 },
+    { "source": "/blog/:path*", "destination": "/it/insights", "statusCode": 301 },
+    { "source": "/category/:slug", "destination": "/it/insights?category=:slug", "statusCode": 301 },
+    { "source": "/tag/:path*", "destination": "/it/insights", "statusCode": 301 },
+    { "source": "/about", "destination": "/it/about", "statusCode": 301 },
+    { "source": "/chi-sono", "destination": "/it/about", "statusCode": 301 },
+    { "source": "/experience", "destination": "/it/experience", "statusCode": 301 },
+    { "source": "/esperienza", "destination": "/it/experience", "statusCode": 301 },
+    { "source": "/projects", "destination": "/it/projects", "statusCode": 301 },
+    { "source": "/progetti", "destination": "/it/projects", "statusCode": 301 },
+    { "source": "/work", "destination": "/it/projects", "statusCode": 301 },
+    { "source": "/contact", "destination": "/it/contact", "statusCode": 301 },
+    { "source": "/contatti", "destination": "/it/contact", "statusCode": 301 },
+    { "source": "/recognition", "destination": "/it/recognition", "statusCode": 301 },
+    { "source": "/insights", "destination": "/it/insights", "statusCode": 301 },
+    { "source": "/privacy", "destination": "/it/privacy", "statusCode": 301 },
+    { "source": "/cookie-policy", "destination": "/it/cookie-policy", "statusCode": 301 },
+    { "source": "/cookie", "destination": "/it/cookie-policy", "statusCode": 301 },
+    { "source": "/design-system", "destination": "/it/design-system", "statusCode": 301 },
+    {
+      "source": "/introducing-synclin",
+      "destination": "/it/introducing-synclin",
+      "statusCode": 301
+    },
+    {
+      "source": "/vincenzo-rauccio-named-most-influential-fintech-entrepreneur-2025-italy-by-wealth-finance-international",
+      "destination": "/it/vincenzo-rauccio-named-most-influential-fintech-entrepreneur-2025-italy-by-wealth-finance-international",
+      "statusCode": 301
+    },
+    {
+      "source": "/blockchain-transforming-elections-for-a-transparent-future",
+      "destination": "/it/blockchain-transforming-elections-for-a-transparent-future",
+      "statusCode": 301
+    },
+    {
+      "source": "/blockchain-in-government",
+      "destination": "/it/blockchain-in-government",
+      "statusCode": 301
+    },
+    {
+      "source": "/revolutionizing-the-flow-how-blockchain-is-reshaping-the-supply-chain",
+      "destination": "/it/revolutionizing-the-flow-how-blockchain-is-reshaping-the-supply-chain",
+      "statusCode": 301
+    }
   ],
   "rewrites": [
     { "source": "/api/health", "destination": "/api/health.json" },
