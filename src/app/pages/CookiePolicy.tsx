@@ -19,7 +19,7 @@ export function CookiePolicy() {
 
   return (
     <Section spacing="none">
-      <Container width="narrow" className="pt-[clamp(3rem,6vw,5rem)]">
+      <Container width="narrow" className="pt-[clamp(3rem,6vw,5rem)] pb-[var(--section-space-tight)]">
         <div className="flex items-center gap-4 border-t border-line pt-4">
           <span className="eyebrow text-ink-faint">{copy.legal}</span>
           <span className="eyebrow text-ink-muted">{copy.title}</span>
