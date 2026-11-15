@@ -35,7 +35,7 @@ export const pages = {
         index: '01',
         eyebrow: 'Introduzione',
         title: 'Il lavoro comincia dal problema, non dalla tecnologia.',
-        lead: 'Sono Vincenzo Rauccio, Consulente Blockchain e speaker. In PwC Italy seguo iniziative di trasformazione digitale e innovazione tecnologica per il settore Financial Services, dall’analisi dei requisiti alla definizione delle soluzioni.',
+        lead: 'Sono Vincenzo Rauccio, Consulente Blockchain e speaker. In PwC Italy seguo processi di trasformazione digitale e innovazione tecnologica per il settore Financial Services, dall’analisi dei requisiti alla definizione delle soluzioni.',
         body: 'Parto dai processi, dalle regole e dalle persone che dovranno usarli. È lì che si capisce se una tecnologia risolve un problema reale.',
         facts: [
           { label: 'Ruolo', value: 'Consulente Blockchain' },
@@ -533,7 +533,7 @@ export const pages = {
         index: '01',
         eyebrow: 'Introduction',
         title: 'The work starts with the problem, not the technology.',
-        lead: 'I am Vincenzo Rauccio, a Blockchain Consultant and speaker. At PwC Italy I support digital transformation and technology innovation initiatives for Financial Services clients, from requirements analysis through to solution design.',
+        lead: 'I am Vincenzo Rauccio, a Blockchain Consultant and speaker. At PwC Italy I support digital transformation and technology innovation processes for Financial Services clients, from requirements analysis through to solution design.',
         body: 'I start with the processes, the rules and the people who will use them. That is where it becomes clear whether a technology solves a real problem.',
         facts: [
           { label: 'Role', value: 'Blockchain Consultant' },
