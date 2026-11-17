@@ -20,6 +20,7 @@ import {
   type Locale,
 } from '../i18n/core'
 import { localizedUi } from '../i18n/ui'
+import { AIAssistant } from './components/assistant/AIAssistant'
 import { ConsentProvider } from './components/consent/CookieConsent'
 import { PageTransition } from './components/motion/Reveal'
 import { SiteFooter } from './components/nav/SiteFooter'
@@ -161,6 +162,7 @@ function LocalizedChrome({ locale }: { locale: Locale }) {
         <AnimatedRoutes />
       </main>
       <SiteFooter />
+      <AIAssistant />
     </>
   )
 }

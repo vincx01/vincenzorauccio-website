@@ -67,7 +67,7 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-3 pt-5 text-caption text-ink-faint sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col gap-3 pt-5 pb-[calc(4.5rem+env(safe-area-inset-bottom))] text-caption text-ink-faint sm:flex-row sm:items-center sm:justify-between">
           <p>© {year} Vincenzo Rauccio</p>
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
             <Link to="/privacy" className="link-quiet text-caption">

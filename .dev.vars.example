@@ -1,0 +1,6 @@
+# Local Cloudflare Worker variables. Copy to .dev.vars and fill with your key.
+# .dev.vars is ignored by git; this example contains placeholders only.
+OPENAI_API_KEY=replace-with-your-key
+OPENAI_MODEL=gpt-4.1-mini
+OPENAI_BASE_URL=https://api.openai.com/v1
+ASSISTANT_FEEDBACK_WEBHOOK_URL=

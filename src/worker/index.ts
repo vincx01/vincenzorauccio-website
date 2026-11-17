@@ -1,7 +1,13 @@
 import { Hono } from 'hono'
 
+import { handleAssistantRequest, handleFeedbackRequest } from '../ai/http'
+
 type Bindings = {
   ASSETS: Fetcher
+  OPENAI_API_KEY?: string
+  OPENAI_MODEL?: string
+  OPENAI_BASE_URL?: string
+  ASSISTANT_FEEDBACK_WEBHOOK_URL?: string
 }
 
 const app = new Hono<{ Bindings: Bindings }>()
@@ -22,6 +28,9 @@ app.get('/api/geo', (c) => {
 })
 
 app.get('/api/health', (c) => c.json({ ok: true }))
+
+app.post('/api/assistant', (c) => handleAssistantRequest(c.req.raw, c.env))
+app.post('/api/assistant-feedback', (c) => handleFeedbackRequest(c.req.raw, c.env))
 
 // Legacy Italian URLs keep their SEO value with a permanent redirect to /it.
 const legacyPaths: Record<string, string> = {
