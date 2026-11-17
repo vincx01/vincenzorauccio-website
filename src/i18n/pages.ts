@@ -302,7 +302,7 @@ export const pages = {
       meta: {
         title: 'Privacy — Vincenzo Rauccio',
         description:
-          'Come vengono trattati i dati personali di chi visita vincenzorauccio.com o scrive a Vincenzo Rauccio.',
+          'Come vengono trattati i dati personali di chi visita vincenzorauccio.com, usa la chat AI o scrive a Vincenzo Rauccio.',
       },
       legal: 'Legale',
       title: 'Privacy',
@@ -313,7 +313,7 @@ export const pages = {
           heading: '',
           paragraphs: [
             [
-              'Questo è il sito personale di Vincenzo Rauccio. Non ci sono account, aree riservate, commenti o moduli di contatto. I dati personali vengono trattati solo per la navigazione tecnica e per le email inviate volontariamente.',
+              'Questo è il sito personale di Vincenzo Rauccio. Non ci sono account, aree riservate, commenti o moduli di contatto. I dati personali vengono trattati per la navigazione tecnica, per le email inviate volontariamente e per la chat AI descritta più sotto.',
             ],
           ],
         },
@@ -349,13 +349,16 @@ export const pages = {
             [
               'Il sito è ospitato su Cloudflare, che eroga le pagine e può trattare dati tecnici di connessione. Se scegli di scrivere tramite LinkedIn o un altro profilo social, il trattamento avviene anche secondo le condizioni di quella piattaforma. Non ci sono fornitori di analytics o di marketing attivi.',
             ],
+            [
+              'Quando usi la chat AI, il testo della domanda e il contesto recente della conversazione vengono trasmessi a OpenAI, fornitore del modello linguistico, per generare la risposta. OpenAI tratta i dati secondo la propria informativa e, per impostazione predefinita, non usa i dati inviati tramite API per addestrare i modelli; può conservare log tecnici per sicurezza e prevenzione degli abusi.',
+            ],
           ],
         },
         {
           heading: 'Conservazione',
           paragraphs: [
             [
-              'Le email vengono conservate per il tempo necessario a gestire la conversazione e poi cancellate, salvo obblighi di legge. I dati tecnici di connessione seguono i tempi di conservazione del fornitore di hosting.',
+              'Le email vengono conservate per il tempo necessario a gestire la conversazione e poi cancellate, salvo obblighi di legge. I dati tecnici di connessione seguono i tempi di conservazione del fornitore di hosting. La cronologia della chat AI resta nella memoria del browser per la sessione corrente e viene persa al ricaricamento o alla chiusura della pagina; il sito non la salva in un database. I feedback sono conservati nei log tecnici per il tempo necessario alla loro analisi.',
             ],
           ],
         },
@@ -366,6 +369,25 @@ export const pages = {
               'Il sito non installa cookie di profilazione e non carica strumenti analitici o pubblicitari. Usa un cookie tecnico e la memoria locale del browser per ricordare la scelta espressa nel banner cookie e la lingua preferita. La scelta può essere revocata in qualsiasi momento dal link “Gestisci preferenze cookie” nel footer. I dettagli sono nella ',
               { text: 'cookie policy', to: '/cookie-policy' },
               '.',
+            ],
+          ],
+        },
+        {
+          heading: 'Assistente AI',
+          paragraphs: [
+            [
+              'La live chat è un assistente informativo basato sull’intelligenza artificiale. Quando invii una domanda, il testo della domanda e il contesto recente della conversazione vengono trasmessi a OpenAI, fornitore del modello linguistico, per generare una risposta. Il sito non crea un profilo del visitatore e non usa la chat per finalità di marketing.',
+            ],
+            [
+              'La cronologia della conversazione resta nella memoria del browser per la sessione corrente e viene persa quando ricarichi o chiudi la pagina. Il sito non la salva in un database. Il provider può conservare log tecnici per sicurezza e prevenzione degli abusi secondo la propria informativa; per impostazione predefinita i dati inviati tramite API non vengono usati per addestrare i modelli.',
+            ],
+            [
+              'Non inserire dati personali, sensibili o riservati nella chat. Se scegli di inviare un feedback, vengono registrati la domanda, la risposta, la valutazione e l’eventuale commento, senza un identificativo personale; il commento è facoltativo e serve solo a migliorare i contenuti. I feedback possono essere inoltrati a un servizio di monitoraggio configurato dal titolare e non modificano automaticamente il sito.',
+            ],
+            [
+              'Se preferisci non usare la chat, puoi scrivere a ',
+              { text: 'vincenzorauccio12@gmail.com', href: 'mailto:vincenzorauccio12@gmail.com' },
+              '. La chat non sostituisce un canale di contatto ufficiale e non conferma che un messaggio sia stato ricevuto o letto.',
             ],
           ],
         },
@@ -406,7 +428,7 @@ export const pages = {
           heading: '',
           paragraphs: [
             [
-              'Questa pagina descrive i cookie e le tecnologie simili usati da vincenzorauccio.com. Il sito non installa cookie di profilazione e non carica strumenti di analisi, pubblicità o profilazione. Usa un cookie tecnico e la memoria locale per ricordare la scelta fatta nel banner cookie e la lingua preferita.',
+              'Questa pagina descrive i cookie e le tecnologie simili usati da vincenzorauccio.com. Il sito non installa cookie di profilazione e non carica strumenti di analisi, pubblicità o profilazione. Usa un cookie tecnico e la memoria locale per ricordare la scelta fatta nel banner cookie e la lingua preferita. La chat AI non installa cookie e conserva la conversazione solo nella memoria della pagina per la sessione corrente.',
             ],
           ],
         },
@@ -426,7 +448,7 @@ export const pages = {
               { text: 'vr-cookie-consent', href: undefined },
               ' e una preferenza di lingua nel cookie tecnico ',
               { text: 'vr-locale', href: undefined },
-              ' e in localStorage. Il consenso contiene la versione, la data e le categorie autorizzate. La lingua contiene solo “it” o “en”. Nessuno dei due contiene dati personali o viene usato per riconoscerti su altri siti. La scelta sul consenso scade dopo 180 giorni; la lingua dura dodici mesi.',
+              ' e in localStorage. Il consenso contiene la versione, la data e le categorie autorizzate. La lingua contiene solo “it” o “en”. Nessuno dei due contiene dati personali o viene usato per riconoscerti su altri siti. La scelta sul consenso scade dopo 180 giorni; la lingua dura dodici mesi. La chat AI non aggiunge cookie: la conversazione vive solo nella memoria della pagina e non viene salvata dal sito.',
             ],
           ],
         },
@@ -800,7 +822,7 @@ export const pages = {
       meta: {
         title: 'Privacy — Vincenzo Rauccio',
         description:
-          'How personal data is processed when you visit vincenzorauccio.com or contact Vincenzo Rauccio.',
+          'How personal data is processed when you visit vincenzorauccio.com, use the AI chat or contact Vincenzo Rauccio.',
       },
       legal: 'Legal',
       title: 'Privacy',
@@ -811,7 +833,7 @@ export const pages = {
           heading: '',
           paragraphs: [
             [
-              'This is the personal website of Vincenzo Rauccio. There are no accounts, restricted areas, comments or contact forms. Personal data is processed only for technical navigation and for emails sent voluntarily.',
+              'This is the personal website of Vincenzo Rauccio. There are no accounts, restricted areas, comments or contact forms. Personal data is processed for technical navigation, for emails sent voluntarily and for the AI chat described below.',
             ],
           ],
         },
@@ -847,13 +869,16 @@ export const pages = {
             [
               'The site is hosted on Cloudflare, which delivers the pages and may process technical connection data. If you choose to write via LinkedIn or another social profile, processing also takes place under that platform’s terms. No analytics or marketing providers are active.',
             ],
+            [
+              'When you use the AI chat, the text of your question and the recent conversation context are sent to OpenAI, the language model provider, to generate a response. OpenAI processes the data under its own notice and, by default, does not use API data to train its models; it may retain technical logs for security and abuse prevention.',
+            ],
           ],
         },
         {
           heading: 'Retention',
           paragraphs: [
             [
-              'Emails are kept for as long as necessary to manage the conversation and are then deleted, unless legal obligations require otherwise. Technical connection data follows the hosting provider’s retention periods.',
+              'Emails are kept for as long as necessary to manage the conversation and are then deleted, unless legal obligations require otherwise. Technical connection data follows the hosting provider’s retention periods. AI chat history stays in browser memory for the current session and is lost when the page is reloaded or closed; the site does not save it in a database. Feedback is retained in technical logs for as long as necessary for analysis.',
             ],
           ],
         },
@@ -864,6 +889,25 @@ export const pages = {
               'The site does not install profiling cookies and does not load analytics or advertising tools. It uses a technical cookie and browser local memory to remember the choice made in the cookie banner and the preferred language. You can withdraw your choice at any time from the “Manage cookie preferences” link in the footer. Details are available in the ',
               { text: 'cookie policy', to: '/cookie-policy' },
               '.',
+            ],
+          ],
+        },
+        {
+          heading: 'AI assistant',
+          paragraphs: [
+            [
+              'The live chat is an informational assistant based on artificial intelligence. When you send a question, the text of the question and the recent conversation context are sent to OpenAI, the language model provider, to generate a response. The site does not build a visitor profile and does not use the chat for marketing.',
+            ],
+            [
+              'The conversation history stays in browser memory for the current session and is lost when you reload or close the page. The site does not save it in a database. The provider may retain technical logs for security and abuse prevention under its own notice; by default, API data is not used to train its models.',
+            ],
+            [
+              'Do not include sensitive, confidential or personal data in the chat. If you choose to send feedback, the question, answer, rating and optional comment are recorded without a personal identifier; the comment is optional and is used only to improve the content. Feedback may be forwarded to a monitoring service configured by the site owner and does not automatically change the site.',
+            ],
+            [
+              'If you prefer not to use the chat, you can write to ',
+              { text: 'vincenzorauccio12@gmail.com', href: 'mailto:vincenzorauccio12@gmail.com' },
+              '. The chat is not an official contact channel and does not confirm that a message has been received or read.',
             ],
           ],
         },
@@ -904,7 +948,7 @@ export const pages = {
           heading: '',
           paragraphs: [
             [
-              'This page describes the cookies and similar technologies used by vincenzorauccio.com. The site does not install profiling cookies and does not load analytics, advertising or profiling tools. It uses a technical cookie and local memory to remember the choice made in the cookie banner and the preferred language.',
+              'This page describes the cookies and similar technologies used by vincenzorauccio.com. The site does not install profiling cookies and does not load analytics, advertising or profiling tools. It uses a technical cookie and local memory to remember the choice made in the cookie banner and the preferred language. The AI chat does not install cookies and keeps the conversation only in page memory for the current session.',
             ],
           ],
         },
@@ -924,7 +968,7 @@ export const pages = {
               { text: 'vr-cookie-consent', href: undefined },
               ' and a language preference in the technical cookie ',
               { text: 'vr-locale', href: undefined },
-              ' and in local storage. The consent entry contains the version, date and authorised categories. The language entry contains only “it” or “en”. Neither contains personal data or is used to recognise you on other sites. Consent expires after 180 days; the language preference lasts twelve months.',
+              ' and in local storage. The consent entry contains the version, date and authorised categories. The language entry contains only “it” or “en”. Neither contains personal data or is used to recognise you on other sites. Consent expires after 180 days; the language preference lasts twelve months. The AI chat adds no cookies: the conversation exists only in page memory and is not saved by the site.',
             ],
           ],
         },
