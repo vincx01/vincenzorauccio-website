@@ -140,6 +140,15 @@ export const pages = {
         empty: 'I riconoscimenti documentati saranno pubblicati qui.',
         link: 'Tutti i riconoscimenti',
       },
+      press: {
+        index: '06',
+        eyebrow: 'Stampa',
+        title: 'Rassegna stampa',
+        subtitle:
+          'Articoli, pubblicazioni e approfondimenti dedicati al mio percorso e alle mie attività.',
+        external: 'Si apre in una nuova scheda',
+        documentLabel: 'Documento istituzionale',
+      },
       contact: {
         eyebrow: 'Contatti',
         title: 'Se vuoi parlarne, scrivimi.',
@@ -659,6 +668,15 @@ export const pages = {
         title: 'Awards and recognition.',
         empty: 'Documented awards and recognition will be published here.',
         link: 'View all awards and recognition',
+      },
+      press: {
+        index: '06',
+        eyebrow: 'Press',
+        title: 'In the Press',
+        subtitle:
+          'Articles, publications and features covering my journey and professional activities.',
+        external: 'Opens in a new tab',
+        documentLabel: 'Institutional document',
       },
       contact: {
         eyebrow: 'Contact',

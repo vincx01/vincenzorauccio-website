@@ -1,6 +1,7 @@
 import { localizedCareer, localizedRecognition, localizedSite } from '../../i18n/content'
 import { useLocale } from '../../i18n/core'
 import { localizedPages } from '../../i18n/pages'
+import { PressSection } from '../components/about/PressSection'
 import { Container } from '../components/layout/Container'
 import { Section } from '../components/layout/Section'
 import { SectionHeading } from '../components/layout/SectionHeading'
@@ -211,6 +212,8 @@ export function About() {
           </div>
         </Container>
       </Section>
+
+      <PressSection />
 
       <Section tone="dark">
         <Container>
